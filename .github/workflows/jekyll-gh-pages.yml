@@ -40,6 +40,17 @@ jobs:
       - name: Install dependencies
         run: |
           poetry install --no-root
+      - name: Debug directory structure
+        run: |
+          echo "Current working directory:"
+          pwd
+          echo "List of all files and folders:"
+          ls -R
+  
+      - name: Print resolved paths for notebooks
+        run: |
+          echo "Notebook paths:"
+          find "Bioinformatics Stronghold" -name "*.ipynb" -exec realpath {} \;
   
       - name: Convert notebooks to HTML
         run: |
