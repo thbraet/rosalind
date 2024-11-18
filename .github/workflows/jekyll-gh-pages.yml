@@ -60,10 +60,20 @@ jobs:
           echo "Listing all .ipynb files:"
           find . -name "*.ipynb"
 
+      # - name: Convert notebooks to HTML
+      #   run: |
+      #     # List all .ipynb files and pass them individually to jupyter nbconvert
+      #     find . -name "*.ipynb" -exec poetry run jupyter nbconvert --to html --output-dir=./ --template=lab {} \;
+
       - name: Convert notebooks to HTML
         run: |
-          # List all .ipynb files and pass them individually to jupyter nbconvert
-          find . -name "*.ipynb" -exec poetry run jupyter nbconvert --to html --output-dir=./ --template=lab {} \;
+          # Convert each notebook to HTML, keeping the directory structure intact
+          find . -name "*.ipynb" -exec sh -c '
+            dir=$(dirname "{}");
+            mkdir -p "$dir"; 
+            poetry run jupyter nbconvert --to html --output-dir "$dir" --template=lab "{}"
+          ' \;
+
 
 
       - name: List HTML files (for debugging)
