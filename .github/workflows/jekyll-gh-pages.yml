@@ -44,7 +44,7 @@ jobs:
       - name: Convert notebooks to HTML
         run: |
           export PATH="$HOME/.local/bin:$PATH"
-          poetry run jupyter nbconvert --to html *.ipynb --output-dir docs
+          poetry run jupyter nbconvert --to html "Bioinformatics Stronghold/*.ipynb" --output-dir docs
   
       - name: Commit and push changes
         run: |
