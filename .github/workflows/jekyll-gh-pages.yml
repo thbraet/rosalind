@@ -28,10 +28,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        
       - name: Set up Python 3.12
         uses: actions/setup-python@v4
         with:
           python-version: '3.12'
+          
       - name: Install Poetry
         run: |
           curl -sSL https://install.python-poetry.org | python3 -
@@ -40,10 +42,6 @@ jobs:
       - name: Install dependencies
         run: |
           poetry install --no-root
-
-      - name: List installed packages
-        run: |
-          poetry run pip list
 
       - name: Debug directory structure
         run: |
@@ -63,12 +61,17 @@ jobs:
           # Convert each notebook to HTML in its current directory
           poetry run jupyter nbconvert --to html --output-dir=./ --template=lab '**/*.ipynb'
 
+      - name: List HTML files (for debugging)
+        run: |
+          echo "Listing generated HTML files:"
+          ls *.html
+
       - name: Commit and push converted notebooks (if any)
         # if: env.changed == 'true'
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          git add '**/*.html'
+          git add .
           git commit -m "Publish updated notebooks to GitHub Pages"
           git push
   
