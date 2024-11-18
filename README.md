@@ -1,4 +1,4 @@
 # rosalind
 Rosalind Programming Challenges
 
-[Mendels First Law](docs/Bioinformatics Stronghold/Level 4/Mendels First Law/Mendels First Law.ipynb.html)
+You can view the notebook [here](Bioinformatics%20Stronghold/Level%201/Counting%20DNA%20Nucleotides/Counting%20DNA%20Nucleotides.ipynb.html).
