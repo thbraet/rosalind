@@ -76,10 +76,10 @@ jobs:
 
 
 
-      - name: List HTML files (for debugging)
+      - name: List generated HTML files
         run: |
           echo "Listing generated HTML files:"
-          ls *.html
+          find . -name "*.html"
 
       - name: Commit and push converted notebooks (if any)
         # if: env.changed == 'true'
