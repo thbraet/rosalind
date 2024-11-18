@@ -56,24 +56,39 @@ jobs:
         run: |
           echo "Notebook paths:"
           find "Bioinformatics Stronghold" -name "*.ipynb" -exec realpath {} \;
-  
+
       - name: Convert notebooks to HTML
+        # if: env.changed == 'true'
         run: |
-          export PATH="$HOME/.local/bin:$PATH"
-          mkdir -p docs
-          poetry run find "Bioinformatics Stronghold" -name "*.ipynb" -exec sh -c '
-                dir="docs/$(dirname "{}")";
-                mkdir -p "$dir";
-                poetry run jupyter nbconvert --to html --output-dir "$dir" --output "$(basename "{}")" "{}"
-              ' \;
-  
-      - name: Commit and push changes
+          # Convert each notebook to HTML in its current directory
+          poetry run jupyter nbconvert --to html --output-dir=. --template=lab docs/**/*.ipynb
+
+      - name: Commit and push converted notebooks (if any)
+        # if: env.changed == 'true'
         run: |
           git config --global user.name "github-actions"
-          git config --global user.email "actions@github.com"
-          git add docs/
-          git commit -m "Publish notebooks to GitHub Pages" || exit 0
+          git config --global user.email "github-actions@github.com"
+          git add '**/*.html'
+          git commit -m "Publish updated notebooks to GitHub Pages"
           git push
+  
+      # - name: Convert notebooks to HTML
+      #   run: |
+      #     export PATH="$HOME/.local/bin:$PATH"
+      #     mkdir -p docs
+      #     poetry run find "Bioinformatics Stronghold" -name "*.ipynb" -exec sh -c '
+      #           dir="docs/$(dirname "{}")";
+      #           mkdir -p "$dir";
+      #           poetry run jupyter nbconvert --to html --output-dir "$dir" --output "$(basename "{}")" "{}"
+      #         ' \;
+  
+      # - name: Commit and push changes
+      #   run: |
+      #     git config --global user.name "github-actions"
+      #     git config --global user.email "actions@github.com"
+      #     git add docs/
+      #     git commit -m "Publish notebooks to GitHub Pages" || exit 0
+      #     git push
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Build with Jekyll
