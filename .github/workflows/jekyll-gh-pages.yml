@@ -89,13 +89,16 @@ jobs:
       #     git add docs/
       #     git commit -m "Publish notebooks to GitHub Pages" || exit 0
       #     git push
+      
       - name: Setup Pages
         uses: actions/configure-pages@v5
+        
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./
           destination: ./_site
+          
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
