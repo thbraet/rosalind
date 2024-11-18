@@ -55,6 +55,11 @@ jobs:
           echo "Notebook paths:"
           find "Bioinformatics Stronghold" -name "*.ipynb" -exec realpath {} \;
 
+      - name: List all .ipynb files (for debugging)
+        run: |
+          echo "Listing all .ipynb files:"
+          find . -name "*.ipynb"
+
       - name: Convert notebooks to HTML
         # if: env.changed == 'true'
         run: |
