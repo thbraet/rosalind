@@ -61,7 +61,7 @@ jobs:
         run: |
           export PATH="$HOME/.local/bin:$PATH"
           mkdir -p docs
-          find "Bioinformatics Stronghold" -name "*.ipynb" -exec jupyter nbconvert --to html --output-dir docs --output '{}' {} \;
+          poetry run find "Bioinformatics Stronghold" -name "*.ipynb" -exec jupyter nbconvert --to html --output-dir docs --output '{}' {} \;
 
   
       - name: Commit and push changes
