@@ -61,7 +61,7 @@ jobs:
         # if: env.changed == 'true'
         run: |
           # Convert each notebook to HTML in its current directory
-          poetry run jupyter nbconvert --to html --output-dir=. --template=lab docs/**/*.ipynb
+          poetry run jupyter nbconvert --to html --output-dir=./ --template=lab '**/*.ipynb'
 
       - name: Commit and push converted notebooks (if any)
         # if: env.changed == 'true'
