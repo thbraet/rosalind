@@ -1,6 +1,6 @@
 ---
-layout: home
-title: Rosalind
+layout: base
+title: Rosalind 1342
 subtitle: All rosalind challenges
 ---
 
