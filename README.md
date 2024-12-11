@@ -6,7 +6,7 @@ subtitle: All rosalind challenges
 
 # rosalind
 Rosalind Programming Challenges
-
+Test 1348
 ## Bioinformatics Stronghold
 ### Level 1
 - [Counting DNA Nucleotides](./Bioinformatics%20Stronghold/Level%201/Counting%20DNA%20Nucleotides/Counting%20DNA%20Nucleotides.html).
