@@ -1,7 +1,7 @@
 ---
-layout: base
-title: Rosalind 1342
-subtitle: All rosalind challenges
+layout: page
+title: About me
+subtitle: Why you'd want to go on a date with me
 ---
 
 # rosalind
