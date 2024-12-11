@@ -1,3 +1,9 @@
+---
+layout: page
+title: Rosalind
+subtitle: All rosalind challenges
+---
+
 # rosalind
 Rosalind Programming Challenges
 
