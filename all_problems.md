@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: base
 title: Rosalind 1342
 subtitle: All rosalind challenges
 ---
