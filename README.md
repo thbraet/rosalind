@@ -14,7 +14,7 @@ Rerun
 ## Bioinformatics Stronghold
 
 ### Level 1
-- [Counting DNA Nucleotides](./Bioinformatics%20Stronghold/Level%201/Counting%20DNA%20Nucleotides/Counting%20DNA%20Nucleotides.html).
+- [Counting DNA Nucleotides](../Bioinformatics%20Stronghold/Level%201/Counting%20DNA%20Nucleotides/Counting%20DNA%20Nucleotides.html).
 
 ### Level 2
 - [Transcribing DNA into RNA](./Bioinformatics%20Stronghold/Level%202/Transcribing%20DNA%20into%20RNA/Transcribing%20DNA%20into%20RNA.html)
