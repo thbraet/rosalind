@@ -29,10 +29,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         
-      - name: Set up Python 3.12
+      - name: Set up Python 3.13
         uses: actions/setup-python@v4
         with:
-          python-version: '3.12'
+          python-version: '3.13'
           
       - name: Install Poetry
         run: |
@@ -76,49 +76,38 @@ jobs:
       #     # List all .ipynb files and pass them individually to jupyter nbconvert
       #     find . -name "*.ipynb" -exec poetry run jupyter nbconvert --to html --output-dir=./ --template=lab {} \;
 
-      - name: Convert notebooks to HTML
+      - name: Convert notebooks to Markdown
         if: env.changed == 'true'
         run: |
-          # Convert each notebook to HTML, keeping the directory structure intact
+          # Convert each notebook to Markdown, keeping the directory structure intact
           find . -name "*.ipynb" -exec sh -c '
             dir=$(dirname "{}");
-            mkdir -p "$dir"; 
-            poetry run jupyter nbconvert --to html --output-dir "$dir" --template=lab "{}"
+            output_dir="$dir"
+            filename=$(basename "{}" .ipynb)
+            markdown_file="$output_dir/$filename.md"
+      
+            # Convert to Markdown
+            poetry run jupyter nbconvert --to markdown --output-dir "$output_dir" "{}"
+      
+            # Prepend the section at the top of the markdown file
+            echo -e "---\ntitle: $filename\n---\n$(cat "$markdown_file")" > "$markdown_file"
           ' \;
-
-
-
-      - name: List generated HTML files
+      
+      - name: List generated Markdown files
         run: |
-          echo "Listing generated HTML files:"
-          find . -name "*.html"
-
+          echo "Listing generated Markdown files:"
+          find . -name "*.md"
+      
       - name: Commit and push converted notebooks (if any)
         if: env.changed == 'true'
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          git add .
-          git commit -m "Publish updated notebooks to GitHub Pages"
+          git add . # This will now add .md files
+          git commit -m "Publish updated notebooks as Markdown to GitHub Pages"
           git push
+
   
-      # - name: Convert notebooks to HTML
-      #   run: |
-      #     export PATH="$HOME/.local/bin:$PATH"
-      #     mkdir -p docs
-      #     poetry run find "Bioinformatics Stronghold" -name "*.ipynb" -exec sh -c '
-      #           dir="docs/$(dirname "{}")";
-      #           mkdir -p "$dir";
-      #           poetry run jupyter nbconvert --to html --output-dir "$dir" --output "$(basename "{}")" "{}"
-      #         ' \;
-  
-      # - name: Commit and push changes
-      #   run: |
-      #     git config --global user.name "github-actions"
-      #     git config --global user.email "actions@github.com"
-      #     git add docs/
-      #     git commit -m "Publish notebooks to GitHub Pages" || exit 0
-      #     git push
       
       - name: Setup Pages
         uses: actions/configure-pages@v5
