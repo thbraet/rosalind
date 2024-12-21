@@ -68,7 +68,7 @@ jobs:
             for notebook in $changed_notebooks; do
               echo "Converting $notebook to Markdown..."
               # Use jupyter nbconvert to convert the notebook to Markdown
-              jupyter nbconvert --to markdown "$notebook"
+              poetry run jupyter nbconvert --to markdown "$notebook"
               echo "$notebook converted to Markdown"
             done
           else
