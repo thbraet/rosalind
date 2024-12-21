@@ -43,17 +43,42 @@ jobs:
         run: |
           poetry install --no-root
 
-      - name: Check for changes in notebook files
-        id: check_changes
+      - name: Print changes in notebooks files
         run: |
-          git fetch --depth=3
-          if git diff --name-only refs/remotes/origin/main -- '**/*.ipynb' | grep -q '\.ipynb$'; then
+          git fetch --depth=5
+
+          # Get the list of changed .ipynb files
+          changed_files=$(git diff --name-only refs/remotes/origin/main -- '**/*.ipynb')
+          echo changed_files
+          
+          if [ -n "$changed_files" ]; then
             echo "Notebooks have changed, proceeding with conversion."
             echo "changed=true" >> $GITHUB_ENV
+          
+            # Print the diff for each changed notebook
+            echo "Printing git diff for the changed notebooks:"
+            for file in $changed_files; do
+              echo "Differences in $file:"
+              git diff refs/remotes/origin/main -- "$file"
+              echo ""
+            done
           else
             echo "No notebook changes detected, skipping conversion."
             echo "changed=false" >> $GITHUB_ENV
           fi
+
+
+      # - name: Check for changes in notebook files
+      #   id: check_changes
+      #   run: |
+      #     git fetch --depth=3
+      #     if git diff --name-only refs/remotes/origin/main -- '**/*.ipynb' | grep -q '\.ipynb$'; then
+      #       echo "Notebooks have changed, proceeding with conversion."
+      #       echo "changed=true" >> $GITHUB_ENV
+      #     else
+      #       echo "No notebook changes detected, skipping conversion."
+      #       echo "changed=false" >> $GITHUB_ENV
+      #     fi
 
       - name: Debug directory structure
         run: |
