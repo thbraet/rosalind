@@ -57,7 +57,23 @@ jobs:
       - name: Check for changed ipynb files in last five commits
         run: |
           echo "Checking for changed .ipynb files in the last five commits:"      
-          git diff --name-only HEAD~5 HEAD -- '*.ipynb'
+          changed_notebooks=$(git diff --name-only HEAD~5 HEAD -- '*.ipynb')
+
+          # Check if there are any .ipynb files changed
+          if [ -n "$changed_notebooks" ]; then
+            echo "Changed .ipynb files:"
+            echo "$changed_notebooks"
+            
+            # Step 2: Iterate over the changed notebooks and convert them to Markdown
+            for notebook in $changed_notebooks; do
+              echo "Converting $notebook to Markdown..."
+              # Use jupyter nbconvert to convert the notebook to Markdown
+              jupyter nbconvert --to markdown "$notebook"
+              echo "$notebook converted to Markdown"
+            done
+          else
+            echo "No notebook changes detected."
+          fi
 
 
       - name: Fetch and Check for Changes
