@@ -47,8 +47,8 @@ jobs:
         run: |
           git fetch --depth=5
 
-          changed_all_files = $(git diff --name-only refs/remotes/origin/main)
-          echo changed__all_files
+          changed_all_files=$(git diff --name-only refs/remotes/origin/main)
+          echo $changed_all_files
 
 
           # Get the list of changed .ipynb files
