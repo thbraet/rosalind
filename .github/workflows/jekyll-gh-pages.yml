@@ -47,7 +47,7 @@ jobs:
         run: |
           git fetch --depth=5
 
-          changed_all_files=$(git diff --name-only refs/remotes/origin/main)
+          changed_all_files=$(git diff refs/remotes/origin/main)
           echo $changed_all_files
 
 
