@@ -43,6 +43,16 @@ jobs:
         run: |
           poetry install --no-root
 
+      - name: Display last five commits
+        run: |
+          echo "Last five commits:"
+          git log -5 --oneline
+
+      - name: Display diff of last five commits
+        run: |
+          echo "Displaying the diff of the last five commits:"
+          git diff HEAD~5
+
       - name: Print changes in notebooks files
         run: |
           git fetch --depth=5
