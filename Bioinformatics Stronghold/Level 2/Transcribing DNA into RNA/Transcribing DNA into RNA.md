@@ -1,3 +1,6 @@
+---
+---
+
 # The Second Nucleic Acid
 
 In [“Counting DNA Nucleotides”](../../Level%201/Counting%20DNA%20Nucleotides/Counting%20DNA%20Nucleotides.html), we described the primary structure of a nucleic acid as a polymer of nucleotide units, and we mentioned that the omnipresent nucleic acid DNA is composed of a varied sequence of four bases.
@@ -31,38 +34,15 @@ Given a DNA string *t* corresponding to a coding strand, its transcribed RNA str
 
 
 ```python
-print("Test workflow 22/12")
-
-tgest
-```
-
-    Test workflow
-
-
-
-    ---------------------------------------------------------------------------
-
-    NameError                                 Traceback (most recent call last)
-
-    Cell In[1], line 3
-          1 print("Test workflow")
-    ----> 3 tgest
-
-
-    NameError: name 'tgest' is not defined
-
-
-
-```python
 input = read_text('sample_input.txt')
-print(input)
+print("Input: ", input)
 
 output = read_text('sample_output.txt')
-print(output)
+print("Output: ",output)
 ```
 
-    GATGGAACTTGACTACGTAAATT
-    GAUGGAACUUGACUACGUAAAUU
+    Input:  GATGGAACTTGACTACGTAAATT
+    Output:  GAUGGAACUUGACUACGUAAAUU
 
 
 # Problem solving logic
