@@ -60,7 +60,7 @@ jobs:
               echo "Converting $notebook to Markdown..."
 
               # Use jupyter nbconvert to convert the notebook to Markdown
-              poetry run jupyter nbconvert --to markdown --template ./jupyter_templates/plain_output.tpl "$notebook"
+              poetry run jupyter nbconvert --to markdown --template ./jupyter_templates/notebook_template.tpl "$notebook"
 
               # Find the generated Markdown file
               markdown_file="${notebook%.ipynb}.md"
