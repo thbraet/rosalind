@@ -30,16 +30,21 @@ An example of a length 21 **DNA string** (whose alphabet contains the symbols 'A
 
 
 ```python
+print("Test workflow New HEQD")
+```
+
+
+```python
 %run ../../functions/read_files.ipynb
 ```
 
 
 ```python
 input = read_text('sample_input.txt')
-print(input)
+print("Input: ", input)
 
 output = read_text('sample_output.txt')
-print(output)
+print("Output: ",output)
 ```
 
     AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC
