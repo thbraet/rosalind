@@ -45,15 +45,6 @@ jobs:
         run: |
           poetry install --no-root
 
-      - name: Display last five commits
-        run: |
-          echo "Last five commits:"
-          git log -5 --oneline
-
-      - name: Display diff of last five commits
-        run: |
-          echo "Displaying the diff of the last five commits:"
-          git diff HEAD~5
       - name: Check for changed ipynb files in last five commits
         run: |
           echo "Checking for changed .ipynb files in the last five commits:"      
@@ -74,79 +65,6 @@ jobs:
           else
             echo "No notebook changes detected."
           fi
-
-
-      - name: Fetch and Check for Changes
-        run: |
-          echo "Fetching the last 5 commits..."
-          git fetch --depth=5
-          
-          echo "Changed files between HEAD and refs/remotes/origin/main:"
-          changed_all_files=$(git diff --name-only refs/remotes/origin/main HEAD)
-          echo "$changed_all_files"
-      
-          # Get the list of changed .ipynb files specifically
-          echo "Checking for notebook files (*.ipynb)..."
-          changed_files=$(git diff --name-only refs/remotes/origin/main HEAD -- '**/*.ipynb')
-          echo "$changed_files"
-          
-          if [ -n "$changed_files" ]; then
-            echo "Notebooks have changed, proceeding with conversion."
-            echo "changed=true" >> $GITHUB_ENV
-      
-            # Debug: Print the diff for each changed notebook
-            echo "Printing git diff for the changed notebooks:"
-            for file in $changed_files; do
-              echo "Differences in $file:"
-              git diff refs/remotes/origin/main -- "$file"
-              echo ""
-            done
-          else
-            echo "No notebook changes detected, skipping conversion."
-            echo "changed=false" >> $GITHUB_ENV
-          fi
-        
-
-      - name: Print changes in notebooks files
-        run: |
-          git fetch --depth=5
-
-          changed_all_files=$(git diff refs/remotes/origin/main)
-          echo $changed_all_files
-
-
-          # Get the list of changed .ipynb files
-          changed_files=$(git diff --name-only refs/remotes/origin/main -- '**/*.ipynb')
-          echo changed_files
-          
-          if [ -n "$changed_files" ]; then
-            echo "Notebooks have changed, proceeding with conversion."
-            echo "changed=true" >> $GITHUB_ENV
-          
-            # Print the diff for each changed notebook
-            echo "Printing git diff for the changed notebooks:"
-            for file in $changed_files; do
-              echo "Differences in $file:"
-              git diff refs/remotes/origin/main -- "$file"
-              echo ""
-            done
-          else
-            echo "No notebook changes detected, skipping conversion."
-            echo "changed=false" >> $GITHUB_ENV
-          fi
-
-
-      # - name: Check for changes in notebook files
-      #   id: check_changes
-      #   run: |
-      #     git fetch --depth=3
-      #     if git diff --name-only refs/remotes/origin/main -- '**/*.ipynb' | grep -q '\.ipynb$'; then
-      #       echo "Notebooks have changed, proceeding with conversion."
-      #       echo "changed=true" >> $GITHUB_ENV
-      #     else
-      #       echo "No notebook changes detected, skipping conversion."
-      #       echo "changed=false" >> $GITHUB_ENV
-      #     fi
 
       - name: Debug directory structure
         run: |
