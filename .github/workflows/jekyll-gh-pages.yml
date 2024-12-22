@@ -56,12 +56,14 @@ jobs:
             echo "$changed_notebooks"
             
             # Step 2: Iterate over the changed notebooks and convert them to Markdown
-            for notebook in $changed_notebooks; do
+            # for notebook in $changed_notebooks; do
+            while IFS= read -r notebook; do
+
               echo "Converting $notebook to Markdown..."
               # Use jupyter nbconvert to convert the notebook to Markdown
               poetry run jupyter nbconvert --to markdown "$notebook"
               echo "$notebook converted to Markdown"
-            done
+            done <<< "$changed_notebooks"
           else
             echo "No notebook changes detected."
           fi
