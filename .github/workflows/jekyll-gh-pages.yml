@@ -56,12 +56,22 @@ jobs:
             echo "$changed_notebooks"
             
             # Step 2: Iterate over the changed notebooks and convert them to Markdown
-            # for notebook in $changed_notebooks; do
             while IFS= read -r notebook; do
-
               echo "Converting $notebook to Markdown..."
+
               # Use jupyter nbconvert to convert the notebook to Markdown
               poetry run jupyter nbconvert --to markdown "$notebook"
+
+              # Find the generated Markdown file
+              markdown_file="${notebook%.ipynb}.md"
+              
+              # Prepend two lines of three dashes to the Markdown file
+              if [ -f "$markdown_file" ]; then
+                sed -i '1i ---\n---\n' "$markdown_file"
+                echo "$markdown_file updated with dashes at the top"
+              else
+                echo "Warning: Markdown file $markdown_file not found"
+              fi
               echo "$notebook converted to Markdown"
               echo "changed=true" >> $GITHUB_ENV
             done <<< "$changed_notebooks"
