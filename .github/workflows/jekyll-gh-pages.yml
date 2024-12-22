@@ -63,54 +63,12 @@ jobs:
               # Use jupyter nbconvert to convert the notebook to Markdown
               poetry run jupyter nbconvert --to markdown "$notebook"
               echo "$notebook converted to Markdown"
+              echo "changed=true" >> $GITHUB_ENV
             done <<< "$changed_notebooks"
           else
             echo "No notebook changes detected."
           fi
 
-      - name: Debug directory structure
-        run: |
-          echo "Current working directory:"
-          pwd
-          echo "List of all files and folders:"
-          ls -R
-  
-      - name: Print resolved paths for notebooks
-        run: |
-          echo "Notebook paths:"
-          find "Bioinformatics Stronghold" -name "*.ipynb" -exec realpath {} \;
-
-      - name: List all .ipynb files (for debugging)
-        run: |
-          echo "Listing all .ipynb files:"
-          find . -name "*.ipynb"
-
-      # - name: Convert notebooks to HTML
-      #   run: |
-      #     # List all .ipynb files and pass them individually to jupyter nbconvert
-      #     find . -name "*.ipynb" -exec poetry run jupyter nbconvert --to html --output-dir=./ --template=lab {} \;
-
-      - name: Convert notebooks to Markdown
-        if: env.changed == 'true'
-        run: |
-          # Convert each notebook to Markdown, keeping the directory structure intact
-          find . -name "*.ipynb" -exec sh -c '
-            dir=$(dirname "{}");
-            output_dir="$dir"
-            filename=$(basename "{}" .ipynb)
-            markdown_file="$output_dir/$filename.md"
-      
-            # Convert to Markdown
-            poetry run jupyter nbconvert --to markdown --output-dir "$output_dir" "{}"
-      
-            # Prepend the section at the top of the markdown file
-            echo -e "---\ntitle: $filename\n---\n$(cat "$markdown_file")" > "$markdown_file"
-          ' \;
-      
-      - name: List generated Markdown files
-        run: |
-          echo "Listing generated Markdown files:"
-          find . -name "*.md"
       
       - name: Commit and push converted notebooks (if any)
         if: env.changed == 'true'
