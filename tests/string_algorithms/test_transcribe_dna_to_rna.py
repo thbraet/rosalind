@@ -36,6 +36,11 @@ def test_transcribe_dna_with_mixed_characters():
     result = transcribe_dna_to_rna("AGCTAGCT")
     expected = "AGCUAGCU"
     assert result == expected
+    
+def test_rosalind_sample_input():
+    result = transcribe_dna_to_rna("GATGGAACTTGACTACGTAAATT")
+    expected = "GAUGGAACUUGACUACGUAAAUU"
+    assert result == expected
 
 if __name__ == "__main__":
     pytest.main()

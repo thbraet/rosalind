@@ -42,6 +42,11 @@ def test_different_order():
     result = get_nucleotide_counts("GATCGA")
     expected = {'A': 2, 'C': 1, 'G': 2, 'T': 1, 'U': 0}
     assert result == expected
+    
+def test_rosalind_sample_input():
+    result = get_nucleotide_counts("AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC")
+    expected = {'A': 20, 'C': 12, 'G': 17, 'T': 21, 'U': 0}
+    assert result == expected
 
 if __name__ == "__main__":
     pytest.main()
