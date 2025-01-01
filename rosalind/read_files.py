@@ -12,18 +12,64 @@ def write_text(file_path, text):
         
         
 
+import pandas as pd
+
 def read_fasta(file_path):
+    """
+    Reads a FASTA file and returns the data as a pandas DataFrame.
+
+    Each sequence in the FASTA file is associated with an identifier that begins
+    with the '>' character. The function parses the file and stores each identifier
+    and its corresponding sequence as a row in a DataFrame.
+
+    Parameters:
+    ----------
+    file_path : str
+        Path to the FASTA file to be read.
+
+    Returns:
+    -------
+    pandas.DataFrame
+        A DataFrame with two columns:
+        - 'Identifier': The identifier of the sequence (string, without the '>' character).
+        - 'Sequence': The corresponding sequence as a string.
+
+    Raises:
+    ------
+    FileNotFoundError
+        If the specified FASTA file cannot be found.
+    ValueError
+        If the file is empty or improperly formatted.
+
+    Example:
+    -------
+    >>> read_fasta("example.fasta")
+         Identifier       Sequence
+    0    seq1            ATGCATGC
+    1    seq2            GATTACA
+    """
     data = {}
 
-    with open(file_path, 'r') as file:
-        identifier = None
-        for line in file:
-            line = line.strip()  # Remove any trailing newline characters
-            if line.startswith('>'):
-                identifier = line[1:]  # Remove '>' and store the identifier
-                data[identifier] = ""  # Initialize the sequence
-            else:
-                data[identifier] += line  # Append the sequence for the identifier
+    try:
+        with open(file_path, 'r') as file:
+            identifier = None
+            for line in file:
+                line = line.strip()  # Remove any trailing newline characters
+                if line.startswith('>'):
+                    identifier = line[1:]  # Remove '>' and store the identifier
+                    if identifier in data:
+                        raise ValueError(f"Duplicate identifier found: {identifier}")
+                    data[identifier] = ""  # Initialize the sequence
+                else:
+                    if identifier is None:
+                        raise ValueError("Sequence found before identifier.")
+                    data[identifier] += line  # Append the sequence for the identifier
+
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"FASTA file not found: {file_path}") from e
+
+    if not data:
+        raise ValueError("The FASTA file is empty or improperly formatted.")
 
     return pd.DataFrame(list(data.items()), columns=['Identifier', 'Sequence'])
 
