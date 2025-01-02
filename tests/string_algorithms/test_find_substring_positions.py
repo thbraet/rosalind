@@ -49,3 +49,9 @@ def test_find_last_position_multiple_occurrences():
     result = find_substring_positions(strand, sub_strand, "last")
     assert result == 8
 
+def test_rosalind_sample_input():
+    strand = "GATATATGCATATACTT"
+    sub_strand = "ATAT"
+    result = find_substring_positions(strand, sub_strand, "all")
+    expected = [2, 4, 10]
+    assert result == expected
