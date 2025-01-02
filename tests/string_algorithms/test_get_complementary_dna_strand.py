@@ -1,5 +1,5 @@
 import pytest
-from rosalind.string_algorithms import get_complementary_dna_strand  # Adjust the import according to your file structure
+from rosalind.string_algorithms import get_complementary_dna_strand 
 
 def test_complementary_strand_basic():
     # Test with a simple DNA sequence

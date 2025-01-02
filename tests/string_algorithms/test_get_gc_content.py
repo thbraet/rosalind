@@ -1,5 +1,5 @@
 import pytest
-from rosalind.string_algorithms import get_gc_content  # Adjust the import according to your file structure
+from rosalind.string_algorithms import get_gc_content 
 
 def test_get_gc_content_basic():
     # Test with a simple sequence

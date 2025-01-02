@@ -1,6 +1,6 @@
 import pytest
 import pandas as pd
-from rosalind.read_files import read_fasta  # Replace 'your_module' with the actual module name
+from rosalind.read_files import read_fasta  
 
 # Test data for mocking
 FASTA_CONTENT = """>seq1

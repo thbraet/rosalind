@@ -48,5 +48,3 @@ def test_rosalind_sample_input():
     expected = {'A': 20, 'C': 12, 'G': 17, 'T': 21, 'U': 0}
     assert result == expected
 
-if __name__ == "__main__":
-    pytest.main()

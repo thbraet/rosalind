@@ -1,7 +1,7 @@
 import pytest
 
 # Import the function
-from rosalind.alignment import get_hamming_distance  # Replace 'your_module' with the actual module name
+from rosalind.alignment import get_hamming_distance 
 
 def test_hamming_distance_valid():
     # Test with strings of equal length and no differences

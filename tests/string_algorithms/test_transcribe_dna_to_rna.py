@@ -1,5 +1,5 @@
 import pytest
-from rosalind.string_algorithms import transcribe_dna_to_rna  # Replace with your actual module name
+from rosalind.string_algorithms import transcribe_dna_to_rna  
 
 def test_transcribe_dna_to_rna_basic():
     # Test for a simple DNA sequence
@@ -41,6 +41,3 @@ def test_rosalind_sample_input():
     result = transcribe_dna_to_rna("GATGGAACTTGACTACGTAAATT")
     expected = "GAUGGAACUUGACUACGUAAAUU"
     assert result == expected
-
-if __name__ == "__main__":
-    pytest.main()
