@@ -37,3 +37,18 @@ def test_get_gc_content_edge_case():
     assert get_gc_content("G") == 1.0
     # Test with a longer sequence
     assert get_gc_content("CGCGCGCGCG") == 1.0  # All C and G
+    
+def test_rosalind_sample_input_6404():
+    result = get_gc_content("CCTGCGGAAGATCGGCACTAGAATAGCCAGAACCGTTTCTCTGAGGCTTCCGGCCTTCCCTCCCACTAATAATTCTGAGG")
+    expected = 0.5375
+    assert result == expected
+
+def test_rosalind_sample_input_5959():
+    result = get_gc_content("CCATCGGTAGCGCATCCTTAGTCCAATTAAGTCCCTATCCAGGCGCTCCGCCGAAGGTCTATATCCATTTGTCAGCAGACACGC")
+    expected = 0.5357142857142857
+    assert result == expected
+    
+def test_rosalind_sample_input_0808():
+    result = get_gc_content("CCACCCTCGTGGTATGGCTAGGCATTCAGGAACCGGAGAACGCTTCAGACCAGCCCGGACTGGGAACCTGCGGGCAGTAGGTGGAAT")
+    expected = 0.6091954022988506
+    assert result == expected
