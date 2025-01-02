@@ -6,7 +6,7 @@ def read_text(file_path):
         return file.read().strip()
     
 
-def write_text(file_path, text):
+def write_text(text, file_path):
     with open(file_path, "w") as file:
         file.write(text)
         
