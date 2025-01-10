@@ -88,7 +88,7 @@ jobs:
           echo $notebooks
 
           # Iterate over each notebook and convert it to Markdown
-          while IFS= read -r -d '' notebook; do
+          while IFS= read -r notebook; do
             echo "Converting $notebook to Markdown..."
 
             # Use jupyter nbconvert to convert the notebook to Markdown
