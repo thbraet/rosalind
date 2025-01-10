@@ -84,11 +84,11 @@ jobs:
           echo "Converting all notebooks to Markdown..."
 
           # Find all .ipynb files in the repository
-          notebooks=$(find . -name "*.ipynb" -print0)
-          echo "$notebooks" | tr '\0' '\n'  # This will print each notebook path on a new line
+          # notebooks=$(find . -name "*.ipynb" -print0)
+          # echo "$notebooks" | tr '\0' '\n'  # This will print each notebook path on a new line
 
           # Iterate over each notebook and convert it to Markdown
-          while IFS= read -r -d '' notebook; do
+          find . -name "*.ipynb" -print0 | while IFS= read -r -d '' notebook; do
             echo "Converting $notebook to Markdown..."
 
             # Use jupyter nbconvert to convert the notebook to Markdown
