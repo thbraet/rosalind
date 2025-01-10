@@ -1,33 +1,98 @@
 ---
 ---
 
-# Chaining the Amino Acids
+# Template Problem
 
-In [“Translating RNA into Protein”](../../Level%204/Translating%20RNA%20into%20Protein/Transalting%20RNA%20into%20Protein.html), we examined the translation of RNA into an amino acid chain for the construction of a protein. When two amino acids link together, they form a peptide bond, which releases a molecule of water; see Figure 1. Thus, after a series of amino acids have been linked together into a polypeptide, every pair of adjacent amino acids has lost one molecule of water, meaning that a polypeptide containing $n$ amino acids has had $n−1$ water molecules removed.
+## Read Sample Input and Output
 
-More generally, a residue is a molecule from which a water molecule has been removed; every amino acid in a protein are residues except the leftmost and the rightmost ones. These outermost amino acids are special in that one has an "unstarted" peptide bond, and the other has an "unfinished" peptide bond. Between them, the two molecules have a single "extra" molecule of water (see the atoms marked in blue in Figure 2). Thus, the mass of a protein is the sum of masses of all its residues plus the mass of a single water molecule.
 
-There are two standard ways of computing the mass of a residue by summing the masses of its individual atoms. Its monoisotopic mass is computed by using the principal (most abundant) isotope of each atom in the amino acid, whereas its average mass is taken by taking the average mass of each atom in the molecule (over all naturally appearing isotopes).
+```python
+from rosalind.computational_mass_spectometry import protein_mass
+from rosalind.read_files import read_text, write_text
+```
 
-Many applications in proteomics rely on mass spectrometry, an analytical chemical technique used to determine the mass, elemental composition, and structure of molecules. In mass spectrometry, monoisotopic mass is used more often than average mass, and so all amino acid masses are assumed to be monoisotopic unless otherwise stated.
 
-The standard unit used in mass spectrometry for measuring mass is the atomic mass unit, which is also called the dalton (Da) and is defined as one twelfth of the mass of a neutral atom of carbon-12. The mass of a protein is the sum of the monoisotopic masses of its amino acid residues plus the mass of a single water molecule (whose monoisotopic mass is 18.01056 Da).
+```python
+sample_input = read_text('sample_input.txt')
+print("Sample Input:\n", sample_input)
 
-In the following several problems on applications of mass spectrometry, we avoid the complication of having to distinguish between residues and non-residues by only considering peptides excised from the middle of the protein. This is a relatively safe assumption because in practice, peptide analysis is often performed in tandem mass spectrometry. In this special class of mass spectrometry, a protein is first divided into peptides, which are then broken into ions for mass analysis.
+sample_output = read_text('sample_output.txt')
+print("\nSample Output:\n",sample_output)
+```
 
-[Link to Rosalind](https://rosalind.info/problems/prtm/)
+    Sample Input:
+     SKADYEK
+    
+    Sample Output:
+     821.392
 
-# Problem
 
-In a weighted alphabet, every symbol is assigned a positive real number called a weight. A string formed from a weighted alphabet is called a weighted string, and its weight is equal to the sum of the weights of its symbols.
+## Solve Sample Problem
 
-The standard weight assigned to each member of the 20-symbol amino acid alphabet is the monoisotopic mass of the corresponding amino acid.
 
-<span style="color:rgba(70,165,70,255); font-weight:bold">Given</span>: A protein string $P$ of length at most 1000 aa.
+```python
+def solve_problem(input):
+    return protein_mass(input, 3)
 
-<span style="color:rgba(70,165,70,255); font-weight:bold">Return</span>:: The total weight of $P$. Consult the monoisotopic mass table.
+```
 
-# Read Example Input and Output Files
+
+```python
+my_sample_output = solve_problem(sample_input)
+my_sample_output
+```
+
+
+
+
+    821.392
+
+
+
+
+```python
+def print_output(output, file_path = 'output.txt'):
+    output_string = str(output)
+    
+    write_text(output_string, file_path)
+    
+    print("Output String:\n",output_string)
+        
+    return output_string
+
+
+```
+
+
+```python
+print_output(my_sample_output, "my_sample_output.txt") == sample_output
+```
+
+    Output String:
+     821.392
+
+
+
+
+
+    True
+
+
+
+## Run Real Input
+
+
+```python
+real_input = read_text('rosalind_prtm.txt')
+
+
+
+print_output(solve_problem(real_input), "my_rosalind_prtm_output.txt");
+```
+
+    Output String:
+     103372.12
+
 
 
 ```python
