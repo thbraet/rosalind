@@ -83,11 +83,7 @@ jobs:
         run: |
           echo "Converting all notebooks to Markdown..."
 
-          # Find all .ipynb files in the repository
-          # notebooks=$(find . -name "*.ipynb" -print0)
-          # echo "$notebooks" | tr '\0' '\n'  # This will print each notebook path on a new line
-
-          # Iterate over each notebook and convert it to Markdown
+          # Find all .ipynb files and process each one
           find . -name "*.ipynb" -print0 | while IFS= read -r -d '' notebook; do
             echo "Converting $notebook to Markdown..."
 
@@ -105,7 +101,8 @@ jobs:
               echo "Warning: Markdown file $markdown_file not found"
             fi
             echo "$notebook converted to Markdown"
-          done <<< "$notebooks"
+          done
+
 
       
       - name: Commit and push converted notebooks (if any)
