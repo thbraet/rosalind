@@ -1,4 +1,5 @@
 from rosalind.read_files import read_codon_dict
+import pandas as pd
 
 
 def get_nucleotide_counts(sequence: str) -> dict[str, int]:
@@ -186,5 +187,93 @@ def translate_rna_to_protein(rna: str) -> str:
         protein_string += protein
     
     return protein_string
+
+from typing import List
+import pandas as pd
+
+def get_profile_matrix(dna_list: List[str]) -> pd.DataFrame:
+    """
+    Generate a profile matrix from a list of DNA strings.
+
+    The profile matrix represents the frequency of each nucleotide (A, C, G, T)
+    at each position in the DNA strings. The function assumes all DNA strings
+    in the list are of equal length.
+
+    Parameters:
+        dna_list (List[str]): A list of DNA strings, where each string represents
+                              a sequence of nucleotides (e.g., "ACGT").
+
+    Returns:
+        pd.DataFrame: A pandas DataFrame with rows for nucleotides ('A', 'C', 'G', 'T')
+                      and columns corresponding to the positions in the DNA strings.
+                      The values represent the count of each nucleotide at each position.
+
+    Example:
+        >>> dna_list = ["ACGT", "ACGT", "AGGT"]
+        >>> get_profile_matrix(dna_list)
+           0  1  2  3
+        A  3  0  0  0
+        C  0  3  0  0
+        G  0  0  3  2
+        T  0  0  0  1
+
+    Raises:
+        ValueError: If the input DNA strings have different lengths.
+    """
+    # Validate input
+    if not dna_list:
+        raise ValueError("The input list of DNA strings is empty.")
+    
+    if len(set(len(seq) for seq in dna_list)) != 1:
+        raise ValueError("All DNA strings must be of the same length.")
+    
+    valid_nucleotides = {'A', 'C', 'G', 'T'}
+    if not all(set(dna).issubset(valid_nucleotides) for dna in dna_list):
+        raise KeyError("DNA strings contain invalid characters. Only 'A', 'C', 'G', 'T' are allowed.")
+
+
+    # Convert DNA strings to a DataFrame
+    dna_strings_to_df = pd.DataFrame([list(seq) for seq in dna_list])
+
+    # Create profile matrix
+    profile_matrix = pd.DataFrame(
+        (
+            (dna_strings_to_df == 'A').sum().values,
+            (dna_strings_to_df == 'C').sum().values,
+            (dna_strings_to_df == 'G').sum().values,
+            (dna_strings_to_df == 'T').sum().values,
+        ),
+        index=['A', 'C', 'G', 'T']
+    )
+
+    return profile_matrix
+
+
+from typing import List
+import pandas as pd
+
+def get_consensus_string(dna_list: List[str]) -> str:
+    """
+    Generate the consensus string from a list of DNA strings.
+
+    The consensus string is derived by calculating the most frequent nucleotide
+    at each position across all DNA strings in the list. This is determined
+    using the profile matrix.
+
+    Parameters:
+        dna_list (List[str]): A list of DNA strings, where all strings are of the same length.
+
+    Returns:
+        str: The consensus string, which represents the most frequent nucleotide
+             at each position across the DNA strings.
+
+    Raises:
+        ValueError: If the input list is empty or DNA strings are not of equal length.
+        KeyError: If the DNA strings contain invalid characters.
+    """
+
+    profile_matrix = get_profile_matrix(dna_list)
+    consensus_string = ''.join(profile_matrix.idxmax().values)
+    return consensus_string
 
     
