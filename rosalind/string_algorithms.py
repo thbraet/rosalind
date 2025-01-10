@@ -1,3 +1,6 @@
+from rosalind.read_files import read_codon_dict
+
+
 def get_nucleotide_counts(sequence: str) -> dict[str, int]:
     """
     Count the frequency of each nucleotide (A, C, G, T, U) in a given DNA or RNA sequence.
@@ -138,3 +141,50 @@ def find_substring_positions(strand: str, sub_strand: str, position_type: str = 
     # Default behavior: return all positions
     return positions if positions else []
 
+
+def split_rna_into_codons(rna: str) -> list[str]:
+    """
+    Splits an RNA sequence into codons.
+
+    A codon is a sequence of three RNA nucleotides. This function takes a string representing an RNA sequence 
+    and splits it into a list of codons, where each codon is a substring of three nucleotides.
+
+    Args:
+        rna (str): The RNA sequence to split. It should consist of a valid RNA nucleotide sequence (A, U, G, C).
+
+    Returns:
+        list[str]: A list of codons, each represented as a string of three nucleotides.
+    """
+    return [rna[i:i + 3] for i in range(0, len(rna), 3)]
+
+
+def translate_rna_to_protein(rna: str) -> str:
+    """
+    Translates an RNA sequence into a protein string.
+
+    This function takes an RNA sequence, splits it into codons, and translates each codon into its corresponding
+    amino acid based on a codon dictionary. Translation stops if a "Stop" codon is encountered.
+
+    Args:
+        rna (str): The RNA sequence to translate. It should consist of a valid RNA nucleotide sequence (A, U, G, C).
+
+    Returns:
+        str: The protein string resulting from translating the RNA sequence. Stop codons are not included in the output.
+    """
+    codon_dict = read_codon_dict()
+    
+    protein_string = ""
+        
+    codons = split_rna_into_codons(rna)
+    
+    for c in codons:
+        if len(c) < 3:
+            break
+        protein = codon_dict[c]
+        if protein == "Stop":
+            break
+        protein_string += protein
+    
+    return protein_string
+
+    

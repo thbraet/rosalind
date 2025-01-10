@@ -80,9 +80,6 @@ def read_codon_dict():
     module_dir = Path(__file__).parent
     # Read the text file and process each line
     with open(module_dir / "files/codon.txt", 'r') as file:
-
-    # with open("/home/thbraet/rosalind/Bioinformatics Stronghold/functions/codon.txt", 'r') as file:
-    # with open("/Workspace/Users/pmm203@fluvius.be/rosalind/Bioinformatics Stronghold/functions/codon.txt", 'r') as file:
         for line in file:
             # Split the line into codons and their corresponding amino acids
             codons = line.split()
@@ -102,8 +99,6 @@ def read_monoisotopic_mass():
     module_dir = Path(__file__).parent
     # Read the text file and process each line
     with open(module_dir / "files/monoisotopic_mass.txt", 'r') as file:
-    # with open("/Workspace/Users/pmm203@fluvius.be/rosalind/Bioinformatics Stronghold/functions/monoisotopic_mass.txt", 'r') as file:
-
         for line in file:
             # Split the line into amino acids and their corresponding monoisotopic masses
             amino_acid, mass = line.split()
