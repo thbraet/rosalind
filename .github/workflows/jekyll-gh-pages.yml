@@ -85,7 +85,7 @@ jobs:
 
           # Find all .ipynb files in the repository
           notebooks=$(find . -name "*.ipynb" -print0)
-          echo $notebooks
+          echo "$notebooks" | tr '\0' '\n'  # This will print each notebook path on a new line
 
           # Iterate over each notebook and convert it to Markdown
           while IFS= read -r -d '' notebook; do
