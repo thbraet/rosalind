@@ -84,7 +84,7 @@ jobs:
           echo "Converting all notebooks to Markdown..."
 
           # Find all .ipynb files in the repository
-          notebooks=$(find . -name "*.ipynb" -print0)
+          notebooks=$(find . -name "*.ipynb")
           echo $notebooks
 
           # Iterate over each notebook and convert it to Markdown
