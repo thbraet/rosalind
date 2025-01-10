@@ -31,17 +31,13 @@ def phenotype_probability(parent1, parent2):
         ('aa', 'aa'): {'AA': 0.0, 'Aa': 0.0, 'aa': 1.0},
     }
 
-    # Normalize the parents to uppercase to handle different input cases
-    parent1 = parent1.upper()
-    parent2 = parent2.upper()
-
     # Determine offspring probabilities
     if (parent1, parent2) in combinations:
         return combinations[(parent1, parent2)]
     else:
         raise ValueError("Invalid parent genotypes. Use 'AA', 'Aa', or 'aa'.")
 
-def probability_dominant_offspring(AA, Aa, aa):
+def probability_dominant_offspring(AA = 0, Aa = 0, aa = 0):
     """
     Calculate the probability of offspring displaying a dominant phenotype 
     given the population of organisms with specific genotypes.
@@ -73,38 +69,39 @@ def probability_dominant_offspring(AA, Aa, aa):
     
     total = AA + Aa + aa
     
+    print(total)
+    
     # Calculate the probabilities for all genotype combinations
-    prob_kk = AA / total * (AA - 1) / (total - 1)
-    prob_mm = Aa / total * (Aa - 1) / (total - 1)
-    prob_nn = aa / total * (aa - 1) / (total - 1)
-    prob_km = AA / total * Aa / (total - 1) + Aa / total * AA / (total - 1)
-    prob_kn = AA / total * aa / (total - 1) + aa / total * AA / (total - 1)
-    prob_mn = Aa / total * aa / (total - 1) + aa / total * Aa / (total - 1)
+    prob_AA_AA = AA / total * (AA - 1) / (total - 1)
+    prob_Aa_Aa = Aa / total * (Aa - 1) / (total - 1)
+    prob_aa_aa = aa / total * (aa - 1) / (total - 1)
+    prob_AA_Aa = AA / total * Aa / (total - 1) + Aa / total * AA / (total - 1)
+    prob_AA_aa = AA / total * aa / (total - 1) + aa / total * AA / (total - 1)
+    prob_Aa_aa = Aa / total * aa / (total - 1) + aa / total * Aa / (total - 1)
+    
+    print(prob_AA_AA, prob_Aa_Aa, prob_aa_aa, prob_AA_Aa, prob_AA_aa, prob_Aa_aa)
 
     # Get probabilities for dominant phenotypes from the Punnett square
-    prob_kk_dom = phenotype_probability('AA', 'AA')['AA'] + phenotype_probability('AA', 'AA')['Aa'] 
-    prob_mm_dom = phenotype_probability('Aa', 'Aa')['AA'] + phenotype_probability('Aa', 'Aa')['Aa']
-    prob_nn_dom = phenotype_probability('aa', 'aa')['AA'] + phenotype_probability('aa', 'aa')['Aa']
-    prob_km_dom = phenotype_probability('AA', 'Aa')['AA'] + phenotype_probability('AA', 'Aa')['Aa']
-    prob_kn_dom = phenotype_probability('AA', 'aa')['AA'] + phenotype_probability('AA', 'aa')['Aa']
-    prob_mn_dom = phenotype_probability('Aa', 'aa')['AA'] + phenotype_probability('Aa', 'aa')['Aa']
+    prob_AA_AA_dom = phenotype_probability('AA', 'AA')['AA'] + phenotype_probability('AA', 'AA')['Aa'] 
+    prob_Aa_Aa_dom = phenotype_probability('Aa', 'Aa')['AA'] + phenotype_probability('Aa', 'Aa')['Aa']
+    prob_aa_aa_dom = phenotype_probability('aa', 'aa')['AA'] + phenotype_probability('aa', 'aa')['Aa']
+    prob_AA_Aa_dom = phenotype_probability('AA', 'Aa')['AA'] + phenotype_probability('AA', 'Aa')['Aa']
+    prob_AA_aa_dom = phenotype_probability('AA', 'aa')['AA'] + phenotype_probability('AA', 'aa')['Aa']
+    prob_Aa_aa_dom = phenotype_probability('Aa', 'aa')['AA'] + phenotype_probability('Aa', 'aa')['Aa']
+    
+    print(prob_Aa_aa_dom)
 
     # Calculate the overall probability for a dominant phenotype
     prob_dom = (
-        prob_kk * prob_kk_dom
-        + prob_mm * prob_mm_dom
-        + prob_nn * prob_nn_dom
-        + prob_km * prob_km_dom
-        + prob_kn * prob_kn_dom
-        + prob_mn * prob_mn_dom
+        prob_AA_AA * prob_AA_AA_dom
+        + prob_Aa_Aa * prob_Aa_Aa_dom
+        + prob_aa_aa * prob_aa_aa_dom
+        + prob_AA_Aa * prob_AA_Aa_dom
+        + prob_AA_aa * prob_AA_aa_dom
+        + prob_Aa_aa * prob_Aa_aa_dom
     )
     
     return prob_dom
-
-
-
-
-
 
 
 def expected_dominant_offspring(AA_AA, AA_Aa, AA_aa, Aa_Aa, Aa_aa, aa_aa, nr_of_offspring_per_couple=2):
@@ -148,7 +145,7 @@ def expected_dominant_offspring(AA_AA, AA_Aa, AA_aa, Aa_Aa, Aa_aa, aa_aa, nr_of_
     prob_dom_Aa_Aa = phenotype_probability('Aa', 'Aa')['AA'] + phenotype_probability('Aa', 'Aa')['Aa']
     prob_dom_Aa_aa = phenotype_probability('Aa', 'aa')['AA'] + phenotype_probability('Aa', 'aa')['Aa']
     prob_dom_aa_aa = phenotype_probability('aa', 'aa')['AA'] + phenotype_probability('aa', 'aa')['Aa']
-    
+     
     # Calculate expected dominant offspring
     expected_dominant = nr_of_offspring_per_couple * (
         AA_AA * prob_dom_AA_AA
@@ -160,27 +157,3 @@ def expected_dominant_offspring(AA_AA, AA_Aa, AA_aa, Aa_Aa, Aa_aa, aa_aa, nr_of_
     )
     
     return expected_dominant
-
-
-def expected_dominant_offspring(input):
-    couples_AA_AA = int(input.split(" ")[0])
-    couples_AA_Aa = int(input.split(" ")[1])
-    couples_AA_aa = int(input.split(" ")[2])
-    couples_Aa_Aa = int(input.split(" ")[3])
-    couples_Aa_aa = int(input.split(" ")[4])
-    couples_aa_aa = int(input.split(" ")[5])
-    
-    prob_dom_AA_AA = 1
-    prob_dom_AA_Aa = 1
-    prob_dom_AA_aa = 1
-    prob_dom_Aa_Aa = 0.75
-    prob_dom_Aa_aa = 0.5
-    prob_dom_aa_aa = 0
-    
-    nr_of_offspring = 2
-
-    expected_dominant = nr_of_offspring * (couples_AA_AA * prob_dom_AA_AA + couples_AA_Aa * prob_dom_AA_Aa + couples_AA_aa * prob_dom_AA_aa + couples_Aa_Aa * prob_dom_Aa_Aa + couples_Aa_aa * prob_dom_Aa_aa + couples_aa_aa * prob_dom_aa_aa)
- 
-    return expected_dominant   
-
-expected_dominant_offspring(input)
