@@ -1,5 +1,5 @@
 import pandas as pd
-
+from pathlib import Path
 
 def read_text(file_path):
     with open(file_path, "r") as file:
@@ -76,9 +76,10 @@ def read_fasta(file_path):
 
 def read_codon_dict():
     codon_dict = {}
-
+    
+    module_dir = Path(__file__).parent
     # Read the text file and process each line
-    with open("rosalind/files/codon.txt", 'r') as file:
+    with open(module_dir / "files/codon.txt", 'r') as file:
 
     # with open("/home/thbraet/rosalind/Bioinformatics Stronghold/functions/codon.txt", 'r') as file:
     # with open("/Workspace/Users/pmm203@fluvius.be/rosalind/Bioinformatics Stronghold/functions/codon.txt", 'r') as file:
@@ -98,8 +99,9 @@ def read_codon_dict():
 def read_monoisotopic_mass():
     protein_mass = {}
 
+    module_dir = Path(__file__).parent
     # Read the text file and process each line
-    with open("rosalind/files/monoisotopic_mass.txt", 'r') as file:
+    with open(module_dir / "files/monoisotopic_mass.txt", 'r') as file:
     # with open("/Workspace/Users/pmm203@fluvius.be/rosalind/Bioinformatics Stronghold/functions/monoisotopic_mass.txt", 'r') as file:
 
         for line in file:
