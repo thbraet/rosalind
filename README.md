@@ -18,10 +18,10 @@ Rerun
 - [x] Test
 
 ### Level 2
-- [Transcribing DNA into RNA](../Bioinformatics%20Stronghold/Level%202/Transcribing%20DNA%20into%20RNA/Transcribing%20DNA%20into%20RNA.html)
+- [Transcribing DNA into RNA](../Bioinformatics%20Stronghold/Level%202/Transcribing%20DNA%20into%20RNA/Transcribing%20DNA%20into%20RNA)
 
 ### Level 3
-- [Complementing a Strand of DNA](../Bioinformatics%20Stronghold/Level%203/Complementing%20a%20Strand%20of%20DNA/Complementing%20a%20Strand%20of%20DNA.html)
+- [Complementing a Strand of DNA](../Bioinformatics%20Stronghold/Level%203/Complementing%20a%20Strand%20of%20DNA/Complementing%20a%20Strand%20of%20DNA)
 
 ### Level 4
 - [Test]()
