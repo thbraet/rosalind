@@ -79,9 +79,36 @@ jobs:
             echo "No notebook changes detected."
           fi
 
+      - name: Convert all notebooks to Markdown
+        run: |
+          echo "Converting all notebooks to Markdown..."
+
+          # Find all .ipynb files in the repository
+          notebooks=$(find . -name "*.ipynb")
+
+          # Iterate over each notebook and convert it to Markdown
+          for notebook in $notebooks; do
+            echo "Converting $notebook to Markdown..."
+
+            # Use jupyter nbconvert to convert the notebook to Markdown
+            poetry run jupyter nbconvert --to markdown "$notebook"
+
+            # Find the generated Markdown file
+            markdown_file="${notebook%.ipynb}.md"
+            
+            # Prepend two lines of three dashes to the Markdown file for Jekyll front matter
+            if [ -f "$markdown_file" ]; then
+              sed -i '1i ---\n---\n' "$markdown_file"
+              echo "$markdown_file updated with dashes at the top"
+            else
+              echo "Warning: Markdown file $markdown_file not found"
+            fi
+            echo "$notebook converted to Markdown"
+          done
+
       
       - name: Commit and push converted notebooks (if any)
-        if: env.changed == 'true'
+        # if: env.changed == 'true'
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
