@@ -1,3 +1,4 @@
+import requests
 from rosalind.read_files import read_codon_dict
 import pandas as pd
 
@@ -276,4 +277,63 @@ def get_consensus_string(dna_list: List[str]) -> str:
     consensus_string = ''.join(profile_matrix.idxmax().values)
     return consensus_string
 
-    
+import re
+import requests
+
+def find_glycosylation_motifs(uniprot_id: str) -> str | None:
+    """
+    Find N-glycosylation motifs in the protein sequence for a given UniProt ID.
+
+    This function fetches the FASTA sequence of a protein from the UniProt database using the given UniProt ID,
+    identifies N-glycosylation motifs (using the regex pattern `N[^P][ST][^P]`), and returns their start positions 
+    in the sequence.
+
+    Args:
+        uniprot_id (str): The UniProt ID of the protein (e.g., "P12345_HUMAN").
+
+    Returns:
+        str | None: A formatted string with the UniProt ID and 1-based start positions of the motifs, or None if:
+            - The UniProt ID is invalid.
+            - No glycosylation motifs are found.
+            - The API request fails.
+
+    Raises:
+        requests.exceptions.RequestException: If there is an error while making the API request.
+
+    Examples:
+        >>> find_glycosylation_motifs("P12345_HUMAN")
+        'P12345_HUMAN\n3 17 29'
+
+        >>> find_glycosylation_motifs("INVALID_ID")
+        None
+    """
+    # Extract the UniProt accession number from the input
+    id = uniprot_id.split('_')[0]
+
+    # Fetch the FASTA data from the UniProt REST API
+    url = f"https://rest.uniprot.org/uniprotkb/{id}.fasta"
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+    except requests.exceptions.RequestException as e:
+        print(f"Failed to fetch data for {uniprot_id}. Error: {e}")
+        return None
+
+    # Parse the FASTA response
+    fasta_data = response.text
+    lines = fasta_data.splitlines()
+    sequence = "".join(line.strip() for line in lines if not line.startswith(">") and line.isalpha())
+
+    # Regular expression for the N-glycosylation motif
+    pattern = r"N(?=[^P][ST][^P])"  # Lookahead to allow overlapping matches
+
+    # Find all overlapping matches and their start indices
+    start_positions = [match.start() + 1 for match in re.finditer(pattern, sequence)]  # Convert to 1-based indexing
+
+    # Format the output
+    if start_positions:
+        result = f"{' '.join(map(str, start_positions))}"
+        return result
+    else:
+        print(f"No glycosylation motifs found for {uniprot_id}.")
+        return None
