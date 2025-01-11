@@ -337,3 +337,91 @@ def find_glycosylation_motifs(uniprot_id: str) -> str | None:
     else:
         print(f"No glycosylation motifs found for {uniprot_id}.")
         return None
+
+from typing import List
+
+def find_common_substring(s1: str, s2: str) -> List[str]:
+    """
+    Find all common substrings between two given strings.
+
+    This function iterates through all substrings of the first string (`s1`) 
+    and checks if they exist in the second string (`s2`). It returns a list 
+    of unique common substrings.
+
+    Args:
+        s1 (str): The first input string.
+        s2 (str): The second input string.
+
+    Returns:
+        List[str]: A list of unique common substrings shared by `s1` and `s2`.
+    
+    Examples:
+        >>> find_common_substring("hello", "yellow")
+        ['e', 'ell', 'o', 'l', 'lo']
+
+        >>> find_common_substring("abc", "def")
+        []
+    """
+    common_substrings = []
+
+    for i in range(len(s1)):
+        for j in range(i, len(s1)):
+            substring = s1[i:j+1]
+            if substring in s2:
+                common_substrings.append(substring)
+
+    # Remove duplicates by converting the list to a set and back to a list
+    return list(set(common_substrings))
+
+
+from typing import List
+
+def find_longest_common_substring(dna_list: List[str]) -> List[str]:
+    """
+    Find the longest common subsequence (LCS) among a list of DNA strings.
+
+    This function identifies the longest subsequence that is common across all DNA strands in the input list.
+    The DNA strings are compared pair by pair, starting with the shortest two, and their common substrings are
+    filtered through the remaining DNA strands.
+
+    Args:
+        dna_list (List[str]): A list of DNA strings, where each string represents a sequence of nucleotides.
+
+    Returns:
+        List[str]: A list of the longest common subsequences found among the input DNA strings, sorted alphabetically.
+    
+    Examples:
+        >>> find_lcs(["ACGT", "ACGTA", "ACG"])
+        ['ACG']
+        
+        >>> find_lcs(["AGTAC", "GTACG", "TACG"])
+        ['ACG']
+        
+        >>> find_lcs(["ATCG", "TAGC", "CTGA"])
+        ['A', 'C', 'G']
+        
+        >>> find_lcs(["AGCT", "GCTA", "TACG"])
+        []
+    """
+    # Sort DNA strands by length (shortest first)
+    dna_list_sorted = sorted(dna_list, key=len, reverse=False)
+
+    # Find common substrings between the first two DNA strands
+    substring_list = find_common_substring(dna_list_sorted[0], dna_list_sorted[1])
+
+    # Filter common substrings across all DNA strands
+    for dna_strand in dna_list_sorted:
+        substring_list = [x for x in substring_list if x in dna_strand]
+        
+    if len(substring_list) == 0:
+        return []
+
+    # Find the maximum length of the common substrings
+    max_length = max(len(s) for s in substring_list)
+    
+    print(substring_list)
+
+    # Filter substrings that have the maximum length
+    longest_strings = [s for s in substring_list if len(s) == max_length]
+        
+    return sorted(longest_strings)
