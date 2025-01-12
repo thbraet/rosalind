@@ -25,7 +25,7 @@ print("\nSample Output:\n",sample_output)
     0  Rosalind_1  GATTACA
     1  Rosalind_2  TAGACCA
     2  Rosalind_3    ATACA
-    
+
     Sample Output:
      AC
 
@@ -58,11 +58,11 @@ my_sample_output
 ```python
 def print_output(output, file_path = 'output.txt'):
     output_string = str(output)
-    
+
     write_text(output_string, file_path)
-    
+
     print("Output String:\n",output_string)
-        
+
     return output_string
 
 
@@ -95,4 +95,3 @@ print_output(solve_problem(real_input), "my_rosalind_lcsm_output.txt");
 
     Output String:
      CGGATAGATGTGGCTGAACCACGACACCGAAGTTCTCAGCGGAGGAAGATATGAAAATGCATAGAAGGCTTACAGATCGGGGGTCGACGTTCGGTACTCGACACTCATCTTTGAAGTGTGTCAGCATGCTCGATGTTCTTCAAGCTGGGGCATAGCAGGGTAGTCCCGTCACCGCATATAAGGGATGTGGTCCCGCTGCGCATCCGACATTC
-
