@@ -7,7 +7,7 @@
 
 
 ```python
-from rosalind.string_algorithms import find_lcs, find_common_substring
+from rosalind.string_algorithms import find_lcs, find_common_substrings
 from rosalind.read_files import read_text, write_text, read_fasta
 ```
 
