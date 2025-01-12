@@ -1,9 +1,5 @@
 import pytest
-import pandas as pd
-from rosalind.string_algorithms import (
-    get_consensus_string,
-    get_profile_matrix,
-)  # Replace with your module name
+from rosalind.string_algorithms import get_consensus_string
 
 
 def test_get_consensus_string_basic():
@@ -20,13 +16,17 @@ def test_get_consensus_string_single_dna_string():
 
 def test_get_consensus_string_empty_list():
     dna_list = []
-    with pytest.raises(ValueError, match="The input list of DNA strings is empty."):
+    with pytest.raises(
+        ValueError, match="The input list of DNA strings is empty."
+    ):
         get_consensus_string(dna_list)
 
 
 def test_get_consensus_string_invalid_input():
     dna_list = ["ACGT", "ACG"]
-    with pytest.raises(ValueError, match="All DNA strings must be of the same length."):
+    with pytest.raises(
+        ValueError, match="All DNA strings must be of the same length."
+    ):
         get_consensus_string(dna_list)
 
 

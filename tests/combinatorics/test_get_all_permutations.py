@@ -5,7 +5,14 @@ from rosalind.combinatorics import get_all_permutations
 def test_get_all_permutations_positive_n():
     # Test with n=3
     result = get_all_permutations(3)
-    expected = [(1, 2, 3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), (3, 2, 1)]
+    expected = [
+        (1, 2, 3),
+        (1, 3, 2),
+        (2, 1, 3),
+        (2, 3, 1),
+        (3, 1, 2),
+        (3, 2, 1),
+    ]
     assert result == expected
 
 

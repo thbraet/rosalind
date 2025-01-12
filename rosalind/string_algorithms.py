@@ -22,7 +22,9 @@ def get_nucleotide_counts(sequence: str) -> dict[str, int]:
         {'A': 2, 'C': 2, 'G': 2, 'U': 2, 'T': 0}
     """
     # Include 'U' for RNA and 'T' for DNA
-    freq_dict = {nucleotide: sequence.count(nucleotide) for nucleotide in "ACGTU"}
+    freq_dict = {
+        nucleotide: sequence.count(nucleotide) for nucleotide in "ACGTU"
+    }
     return freq_dict
 
 
@@ -34,7 +36,7 @@ def transcribe_dna_to_rna(dna_sequence: str) -> str:
         dna_sequence (str): A string representing the DNA sequence, consisting of the characters 'A', 'C', 'G', and 'T'.
 
     Returns:
-        str: A string representing the RNA sequence, where all occurrences of 'T' in the DNA sequence
+        str: A string representing the RNA sequence, where all occurrences of 'eT' in the DNA sequence
              are replaced with 'U'.
 
     Example:
@@ -323,7 +325,9 @@ def find_glycosylation_motifs(uniprot_id: str) -> list[int] | None:
     fasta_data = response.text
     lines = fasta_data.splitlines()
     sequence = "".join(
-        line.strip() for line in lines if not line.startswith(">") and line.isalpha()
+        line.strip()
+        for line in lines
+        if not line.startswith(">") and line.isalpha()
     )
 
     # Regular expression for the N-glycosylation motif
@@ -403,7 +407,9 @@ def find_longest_common_substring(dna_list: List[str]) -> List[str]:
     dna_list_sorted = sorted(dna_list, key=len, reverse=False)
 
     # Find common substrings between the first two DNA strands
-    substring_list = find_common_substrings(dna_list_sorted[0], dna_list_sorted[1])
+    substring_list = find_common_substrings(
+        dna_list_sorted[0], dna_list_sorted[1]
+    )
 
     # Filter common substrings across all DNA strands
     for dna_strand in dna_list_sorted:

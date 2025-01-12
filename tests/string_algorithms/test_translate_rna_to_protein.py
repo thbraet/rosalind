@@ -1,4 +1,3 @@
-import pytest
 from rosalind.string_algorithms import translate_rna_to_protein
 
 
@@ -10,9 +9,7 @@ def test_valid_rna_with_stop():
 
 def test_valid_rna_without_stop():
     rna = "AUGUUUGCUUGG"
-    expected = (
-        "MFAW"  # Methionine (AUG), Phenylalanine (UUU), Alanine (GCU), Tryptophan (UGG)
-    )
+    expected = "MFAW"  # Methionine (AUG), Phenylalanine (UUU), Alanine (GCU), Tryptophan (UGG)
     assert translate_rna_to_protein(rna) == expected
 
 

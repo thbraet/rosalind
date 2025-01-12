@@ -1,4 +1,3 @@
-import pytest
 from rosalind.string_algorithms import get_gc_content
 
 

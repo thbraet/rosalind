@@ -4,7 +4,9 @@ from rosalind.probability import probability_dominant_offspring
 
 def test_probability_dominant_offspring_basic():
     # Test with simple case of 1 organism of each type
-    assert pytest.approx(probability_dominant_offspring(1, 1, 1), 0.01) == 0.8333
+    assert (
+        pytest.approx(probability_dominant_offspring(1, 1, 1), 0.01) == 0.8333
+    )
 
 
 def test_probability_dominant_offspring_all_dominant():
@@ -19,7 +21,9 @@ def test_probability_dominant_offspring_all_recessive():
 
 def test_probability_dominant_offspring_mixed_population():
     # Mixed population
-    assert pytest.approx(probability_dominant_offspring(4, 4, 4), 0.01) == 0.7651
+    assert (
+        pytest.approx(probability_dominant_offspring(4, 4, 4), 0.01) == 0.7651
+    )
 
 
 def test_probability_dominant_offspring_large_population():

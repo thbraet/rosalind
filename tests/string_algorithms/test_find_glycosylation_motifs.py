@@ -30,7 +30,9 @@ def test_large_protein():
     result = find_glycosylation_motifs(
         "Q8WZ42"
     )  # Replace with a real ID of a large protein
-    assert result is not None, "Expected to find motifs in a large protein sequence."
+    assert (
+        result is not None
+    ), "Expected to find motifs in a large protein sequence."
     assert isinstance(result, list), "Result should be a list of positions."
 
 
@@ -38,8 +40,12 @@ def test_api_rate_limit():
     # Make multiple requests in a loop to check if rate limits are handled
     for _ in range(10):  # Replace 10 with a reasonable number for testing
         result = find_glycosylation_motifs("B5ZC00")
-        assert result is not None, "Expected valid results even with repeated requests."
-        assert isinstance(result, list), "Result should be a list of positions."
+        assert (
+            result is not None
+        ), "Expected valid results even with repeated requests."
+        assert isinstance(
+            result, list
+        ), "Result should be a list of positions."
 
 
 @pytest.mark.parametrize(

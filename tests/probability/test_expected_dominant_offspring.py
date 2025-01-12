@@ -35,7 +35,9 @@ def test_expected_dominant_offspring_mixed_couples():
 def test_expected_dominant_offspring_custom_offspring():
     # Test case 7: Custom number of offspring per couple
     assert (
-        expected_dominant_offspring(10, 20, 15, 10, 25, 5, nr_of_offspring_per_couple=3)
+        expected_dominant_offspring(
+            10, 20, 15, 10, 25, 5, nr_of_offspring_per_couple=3
+        )
         == 195
     )
 

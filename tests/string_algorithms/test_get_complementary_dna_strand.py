@@ -1,4 +1,3 @@
-import pytest
 from rosalind.string_algorithms import get_complementary_dna_strand
 
 

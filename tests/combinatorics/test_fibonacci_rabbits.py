@@ -11,11 +11,15 @@ def test_base_case_zero_months():
 
 
 def test_base_case_one_month():
-    assert fibonacci_rabbits(1, 3) == 1, "There should be 1 rabbit pair at month 1."
+    assert (
+        fibonacci_rabbits(1, 3) == 1
+    ), "There should be 1 rabbit pair at month 1."
 
 
 def test_base_case_two_months():
-    assert fibonacci_rabbits(2, 3) == 1, "There should be 1 rabbit pair at month 2."
+    assert (
+        fibonacci_rabbits(2, 3) == 1
+    ), "There should be 1 rabbit pair at month 2."
 
 
 def test_three_months_with_k_1():
@@ -40,12 +44,14 @@ def test_large_n_small_k():
     result = fibonacci_rabbits(20, 1)
     assert (
         result == 6765
-    ), f"With k=1, there should be 6765 rabbit pairs at month 20 (classic Fibonacci)."
+    ), "With k=1, there should be 6765 rabbit pairs at month 20 (classic Fibonacci)."
 
 
 def test_large_k():
     result = fibonacci_rabbits(5, 5)
-    assert result == 41, "With k=5, there should be 41 rabbit pairs at month 5."
+    assert (
+        result == 41
+    ), "With k=5, there should be 41 rabbit pairs at month 5."
 
 
 def test_invalid_n():

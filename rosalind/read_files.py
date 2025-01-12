@@ -12,9 +12,6 @@ def write_text(text, file_path):
         file.write(text)
 
 
-import pandas as pd
-
-
 def read_fasta(file_path):
     """
     Reads a FASTA file and returns the data as a pandas DataFrame.
@@ -57,14 +54,20 @@ def read_fasta(file_path):
             for line in file:
                 line = line.strip()  # Remove any trailing newline characters
                 if line.startswith(">"):
-                    identifier = line[1:]  # Remove '>' and store the identifier
+                    identifier = line[
+                        1:
+                    ]  # Remove '>' and store the identifier
                     if identifier in data:
-                        raise ValueError(f"Duplicate identifier found: {identifier}")
+                        raise ValueError(
+                            f"Duplicate identifier found: {identifier}"
+                        )
                     data[identifier] = ""  # Initialize the sequence
                 else:
                     if identifier is None:
                         raise ValueError("Sequence found before identifier.")
-                    data[identifier] += line  # Append the sequence for the identifier
+                    data[
+                        identifier
+                    ] += line  # Append the sequence for the identifier
 
     except FileNotFoundError as e:
         raise FileNotFoundError(f"FASTA file not found: {file_path}") from e

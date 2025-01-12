@@ -55,13 +55,17 @@ def test_get_profile_matrix_single_string():
 
 def test_get_profile_matrix_invalid_input():
     dna_list = ["ACGT", "ACG"]
-    with pytest.raises(ValueError, match="All DNA strings must be of the same length."):
+    with pytest.raises(
+        ValueError, match="All DNA strings must be of the same length."
+    ):
         get_profile_matrix(dna_list)
 
 
 def test_get_profile_matrix_empty_input():
     dna_list = []
-    with pytest.raises(ValueError, match="The input list of DNA strings is empty."):
+    with pytest.raises(
+        ValueError, match="The input list of DNA strings is empty."
+    ):
         get_profile_matrix(dna_list)
 
 

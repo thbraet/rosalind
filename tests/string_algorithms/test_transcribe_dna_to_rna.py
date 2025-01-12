@@ -1,4 +1,3 @@
-import pytest
 from rosalind.string_algorithms import transcribe_dna_to_rna
 
 

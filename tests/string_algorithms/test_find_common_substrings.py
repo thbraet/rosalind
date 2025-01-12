@@ -14,7 +14,11 @@ from rosalind.string_algorithms import (
         ),  # Common substrings: ['e', 'ell', 'o', 'l', 'lo']
         ("abc", "def", []),  # No common substrings
         ("abc", "abc", ["abc", "a", "b", "c", "ab", "bc"]),  # Full overlap
-        ("abcdef", "bcd", ["b", "bc", "bcd", "c", "cd", "d"]),  # Partial overlap
+        (
+            "abcdef",
+            "bcd",
+            ["b", "bc", "bcd", "c", "cd", "d"],
+        ),  # Partial overlap
         (
             "short",
             "shorter",

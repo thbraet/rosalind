@@ -80,7 +80,9 @@ def probability_dominant_offspring(AA=0, Aa=0, aa=0):
     prob_AA_aa = AA / total * aa / (total - 1) + aa / total * AA / (total - 1)
     prob_Aa_aa = Aa / total * aa / (total - 1) + aa / total * Aa / (total - 1)
 
-    print(prob_AA_AA, prob_Aa_Aa, prob_aa_aa, prob_AA_Aa, prob_AA_aa, prob_Aa_aa)
+    print(
+        prob_AA_AA, prob_Aa_Aa, prob_aa_aa, prob_AA_Aa, prob_AA_aa, prob_Aa_aa
+    )
 
     # Get probabilities for dominant phenotypes from the Punnett square
     prob_AA_AA_dom = (

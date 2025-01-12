@@ -1,4 +1,3 @@
-import pytest
 from rosalind.string_algorithms import find_substring_positions
 
 
