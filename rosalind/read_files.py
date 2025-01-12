@@ -1,18 +1,19 @@
 import pandas as pd
 from pathlib import Path
 
+
 def read_text(file_path):
     with open(file_path, "r") as file:
         return file.read().strip()
-    
+
 
 def write_text(text, file_path):
     with open(file_path, "w") as file:
         file.write(text)
-        
-        
+
 
 import pandas as pd
+
 
 def read_fasta(file_path):
     """
@@ -51,11 +52,11 @@ def read_fasta(file_path):
     data = {}
 
     try:
-        with open(file_path, 'r') as file:
+        with open(file_path, "r") as file:
             identifier = None
             for line in file:
                 line = line.strip()  # Remove any trailing newline characters
-                if line.startswith('>'):
+                if line.startswith(">"):
                     identifier = line[1:]  # Remove '>' and store the identifier
                     if identifier in data:
                         raise ValueError(f"Duplicate identifier found: {identifier}")
@@ -71,38 +72,39 @@ def read_fasta(file_path):
     if not data:
         raise ValueError("The FASTA file is empty or improperly formatted.")
 
-    return pd.DataFrame(list(data.items()), columns=['Identifier', 'Sequence'])
+    return pd.DataFrame(list(data.items()), columns=["Identifier", "Sequence"])
 
 
 def read_codon_dict():
     codon_dict = {}
-    
+
     module_dir = Path(__file__).parent
     # Read the text file and process each line
-    with open(module_dir / "files/codon.txt", 'r') as file:
+    with open(module_dir / "files/codon.txt", "r") as file:
         for line in file:
             # Split the line into codons and their corresponding amino acids
             codons = line.split()
-            
+
             # There should be four pairs (codon, amino acid) per line
             for i in range(0, len(codons), 2):
                 codon = codons[i]
                 amino_acid = codons[i + 1]
-                
+
                 # Add the codon and its corresponding amino acid to the dictionary
                 codon_dict[codon] = amino_acid
     return codon_dict
+
 
 def read_monoisotopic_mass():
     protein_mass = {}
 
     module_dir = Path(__file__).parent
     # Read the text file and process each line
-    with open(module_dir / "files/monoisotopic_mass.txt", 'r') as file:
+    with open(module_dir / "files/monoisotopic_mass.txt", "r") as file:
         for line in file:
             # Split the line into amino acids and their corresponding monoisotopic masses
             amino_acid, mass = line.split()
-            
+
             # Add the amino acid and its corresponding mass to the dictionary
             protein_mass[amino_acid] = float(mass)
     return protein_mass

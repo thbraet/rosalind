@@ -72,7 +72,7 @@ def translate(spliced_rna, codon_dict):
 def get_protein(input):
     rna = input.iloc[0].Sequence
     introns = input.iloc[1:].Sequence.tolist()
-    
+
     # rna, introns = read_fasta(file_path)
     spliced_rna = splice(rna, introns)
     protein = translate(spliced_rna, codon_dict)
@@ -112,5 +112,3 @@ get_protein(real_input)
 
 
     'MSWPREDTIGPPPKSRLDKHITCLGPKCNGISRVVTTLDRGLYDGMSPDHHVVPSAAYRQTRIVYEQCCAVRRWNQQRTQRSYRSYVPSQRTLRGDISVSLIALIFTPSSPCIPQTQAAYRHRPRDEEGTPPWEDPKVGPPILLSCRETYRSYSVFIRSLAISGGGHYLVNMEECGEASRVRHLALDSCRQAGQ'
-
-

@@ -95,8 +95,8 @@ print(output)
     Rosalind_0498 Rosalind_2391
     Rosalind_0498 Rosalind_0442
     Rosalind_2391 Rosalind_2323
-    
-    
+
+
     OUTPUT:
     Rosalind_0498 Rosalind_2391
     Rosalind_0498 Rosalind_0442
@@ -258,7 +258,7 @@ print(get_overlap_graph(real_input))
     Rosalind_6771 Rosalind_4912
     Rosalind_4226 Rosalind_2203
     Rosalind_4226 Rosalind_4725
-    
+
 
 
 

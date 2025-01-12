@@ -51,15 +51,15 @@ def get_input_dna(input):
 def get_complimentary_dna_strand(template_dna_strand):
     # Define the replacement mappings
     replacements = {'T': 'A', 'A': 'T', 'C': 'G', 'G': 'C'}
-    
+
     # Use a list comprehension to apply replacements and then join into a new string
     return ''.join(replacements.get(base, base) for base in template_dna_strand)[::-1]
-    
+
 
 def transcribe_dna_to_rna(template_dna_strand):
     # Define the replacement mappings
     replacements = {'T': 'A', 'A': 'U', 'C': 'G', 'G': 'C'}
-    
+
     # Use a list comprehension to apply replacements and then join into a new string
     return ''.join(replacements.get(base, base) for base in template_dna_strand)[::-1]
 
@@ -91,12 +91,12 @@ def split_into_codons(rna):
 def find_first_stop_codon_index(codon_list):
     # Define the stop codons
     stop_codons = ['UAA', 'UAG', 'UGA']
-    
+
     # Loop through the list to find the first stop codon
     for index, codon in enumerate(codon_list):
         if codon in stop_codons:
             return index  # Return the index of the first stop codon
-    
+
     # If no stop codon is found, return -1
     return -1
 
@@ -104,12 +104,12 @@ def find_first_stop_codon_index(codon_list):
 
 
 ```python
-def translate_rna_to_protein(codons):    
+def translate_rna_to_protein(codons):
     # Translate each codon into an amino acid
     protein = ''
     for codon in codons:
         protein += codon_dict[codon]
-    
+
     return protein
 ```
 
@@ -117,22 +117,22 @@ def translate_rna_to_protein(codons):
 ```python
 def get_open_reading_frame(input):
     protein_list = []
-    
+
     input_dna = get_input_dna(input)
     complimentary_dna = get_complimentary_dna_strand(input_dna)
-    
+
     input_rna = transcribe_dna_to_rna(input_dna)
     complimentary_rna = transcribe_dna_to_rna(complimentary_dna)
-    
+
     start_codon_indexes = get_all_start_codon_indexes(input_rna)
     complimentary_start_codon_indexes = get_all_start_codon_indexes(complimentary_rna)
-    
+
     for i in start_codon_indexes:
         codon_list = split_into_codons(input_rna[i:])
         stop_index = find_first_stop_codon_index(codon_list)
         if stop_index != -1:
             protein_list.append(translate_rna_to_protein(codon_list[:stop_index]))
-        
+
     for i in complimentary_start_codon_indexes:
         codon_list = split_into_codons(complimentary_rna[i:])
         stop_index = find_first_stop_codon_index(codon_list)
@@ -140,7 +140,7 @@ def get_open_reading_frame(input):
             protein_list.append(translate_rna_to_protein(codon_list[:stop_index]))
 
     return set(protein_list)
-    
+
 
 get_open_reading_frame(input)
 ```

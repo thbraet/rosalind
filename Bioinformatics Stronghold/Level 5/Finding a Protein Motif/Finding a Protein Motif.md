@@ -25,7 +25,7 @@ print("\nSample Output:\n",sample_output)
     B5ZC00
     P07204_TRBM_HUMAN
     P20840_SAG1_YEAST
-    
+
     Sample Output:
      B5ZC00
     85 118 142 306 395
@@ -33,7 +33,7 @@ print("\nSample Output:\n",sample_output)
     47 115 116 382 409
     P20840_SAG1_YEAST
     79 109 135 248 306 348 364 402 485 501 614
-    
+
 
 
 ## Solve Sample Problem
@@ -63,18 +63,18 @@ print(my_sample_output)
     47 115 116 382 409
     P20840_SAG1_YEAST
     79 109 135 248 306 348 364 402 485 501 614
-    
+
 
 
 
 ```python
 def print_output(output, file_path = 'output.txt'):
     output_string = str(output)
-    
+
     write_text(output_string, file_path)
-    
+
     print("Output String:\n",output_string)
-        
+
     return output_string
 
 
@@ -92,7 +92,7 @@ print_output(my_sample_output, "my_sample_output.txt") == sample_output
     47 115 116 382 409
     P20840_SAG1_YEAST
     79 109 135 248 306 348 364 402 485 501 614
-    
+
 
 
 
@@ -132,5 +132,3 @@ print_output(solve_problem(real_input), "my_rosalind_mprt_output.txt");
     87 284 383
     Q90304_C166_CARAU
     92 171 350 441 465
-    
-

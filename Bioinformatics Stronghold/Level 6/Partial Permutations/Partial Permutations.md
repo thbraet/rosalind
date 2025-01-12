@@ -43,15 +43,15 @@ def get_partial_permutations(input):
     result = 1
     n = int(input.split()[0])
     k = int(input.split()[1])
-    
+
     for i in range(n-k+1,n+1):
         result *= i
-    
-    return result % 1000000    
-    
-    # This doesn't work for large numbers    
+
+    return result % 1000000
+
+    # This doesn't work for large numbers
     return int(math.factorial(n)/math.factorial(n-k)) % 1000000
-    
+
 get_partial_permutations(input)
 ```
 

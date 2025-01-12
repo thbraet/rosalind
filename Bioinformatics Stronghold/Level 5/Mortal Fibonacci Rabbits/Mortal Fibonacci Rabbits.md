@@ -50,7 +50,7 @@ print(output)
 def get_mortal_fibonacci_rabbits(input):
     month = int(input.split(" ")[0])
     lifespan = int(input.split(" ")[1])
-    
+
     rabbits_m = []
     m1 = [1] + [0] * (lifespan - 1)
     rabbits_m = [m1]
@@ -72,7 +72,7 @@ get_mortal_fibonacci_rabbits(input)
 
 
 ```python
-get_mortal_fibonacci_rabbits(input) == int(output)  
+get_mortal_fibonacci_rabbits(input) == int(output)
 ```
 
 
@@ -95,7 +95,7 @@ def get_newborns(t, L):
         total = 0
         for i in range(2, L+1):
             total += get_newborns(t-i, L)
-        return total            
+        return total
 
 def get_mortal_fibonacci_rabbits_recursive(t, L):
     total = 0
@@ -122,5 +122,3 @@ get_mortal_fibonacci_rabbits(real_input)
 
 
     159659704963213182
-
-

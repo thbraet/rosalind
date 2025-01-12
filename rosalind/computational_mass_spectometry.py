@@ -16,11 +16,11 @@ def get_protein_mass(amino_acid_chain, rounding=None):
         float: The total mass of the protein. Rounded to the specified number of decimal places if rounding is provided.
     """
     aa_masses = read_monoisotopic_mass()
-    
+
     weight = 0
     for c in amino_acid_chain:
         weight += aa_masses[c]
-        
+
     if rounding is not None:
         return round(weight, rounding)
     return weight

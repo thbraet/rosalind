@@ -50,15 +50,15 @@ def find_and_merge_largest_overlap(strings):
     best_overlap = 0
     best_matching_string = None
     best_match_index = -1
-    
+
     unfinished = True
-    
+
     while unfinished == True;
-    
+
         for i, string1 in enumerate(strings):
             best_overlap = 0
-            
-            
+
+
             for j, string2 in enumerate(strings):
                 if i != j:
                     overlap = overlap_length(string1, string2)
@@ -101,7 +101,7 @@ def function(input):
 function(input) == output
 ```
 
-    Hello World  
+    Hello World
 
 
 # Submit solution

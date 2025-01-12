@@ -16,7 +16,7 @@ def fibonacci_rabbits(n, k=1):
         raise ValueError("Number of months (n) must be non-negative.")
     if k < 0:
         raise ValueError("Number of pairs produced (k) must be non-negative.")
-    
+
     if n == 0:
         return 0
     if n == 1:
@@ -35,6 +35,7 @@ def fibonacci_rabbits(n, k=1):
         prev1 = current
 
     return prev1
+
 
 def get_number_of_permutations(n: int) -> int:
     """

@@ -7638,7 +7638,7 @@ MVYIADKQHVASREAYGHMFKVCA
 <span class="k">def</span> <span class="nf">get_protein</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
     <span class="n">rna</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">Sequence</span>
     <span class="n">introns</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">Sequence</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-    
+
     <span class="c1"># rna, introns = read_fasta(file_path)</span>
     <span class="n">spliced_rna</span> <span class="o">=</span> <span class="n">splice</span><span class="p">(</span><span class="n">rna</span><span class="p">,</span> <span class="n">introns</span><span class="p">)</span>
     <span class="n">protein</span> <span class="o">=</span> <span class="n">translate</span><span class="p">(</span><span class="n">spliced_rna</span><span class="p">,</span> <span class="n">codon_dict</span><span class="p">)</span>

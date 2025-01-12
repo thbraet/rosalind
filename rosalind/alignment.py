@@ -2,7 +2,7 @@ def get_hamming_distance(str1, str2):
     """
     Calculate the Hamming distance between two strings.
 
-    The Hamming distance is defined as the number of differing characters 
+    The Hamming distance is defined as the number of differing characters
     at the same positions in two strings of equal length.
 
     Parameters:
@@ -17,5 +17,5 @@ def get_hamming_distance(str1, str2):
     """
     if len(str1) != len(str2):
         raise ValueError("Strings must be of equal length.")
-    
+
     return sum(char1 != char2 for char1, char2 in zip(str1, str2))

@@ -2,7 +2,7 @@
 ---
 
 ```python
-a = 4306 
+a = 4306
 b = 8428
 
 total_sum = 0

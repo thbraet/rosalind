@@ -23,7 +23,7 @@ print("\nSample Output:\n",sample_output)
 
     Sample Input:
      3
-    
+
     Sample Output:
      6
     1 2 3
@@ -32,7 +32,7 @@ print("\nSample Output:\n",sample_output)
     2 3 1
     3 1 2
     3 2 1
-    
+
 
 
 ## Solve Sample Problem
@@ -67,13 +67,13 @@ def print_output(output, file_path = 'output.txt'):
     for perm in output[1]:
         output_string += " ".join(map(str, perm))
         output_string += '\n'
-    
+
     # output_string = str(output)
-    
+
     write_text(output_string, file_path)
-    
+
     print("Output String:\n",output_string)
-        
+
     return output_string
 
 
@@ -92,7 +92,7 @@ print_output(my_sample_output, "my_sample_output.txt") == sample_output
     2 3 1
     3 1 2
     3 2 1
-    
+
 
 
 
@@ -833,5 +833,3 @@ print_output(solve_problem(real_input), "my_rosalind_perm_output.txt");
     6 5 4 2 3 1
     6 5 4 3 1 2
     6 5 4 3 2 1
-    
-

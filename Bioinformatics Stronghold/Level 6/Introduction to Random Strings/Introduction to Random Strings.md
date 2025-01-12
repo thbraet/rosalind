@@ -46,10 +46,10 @@ def get_log_probability(gc_content, dna):
         'T': (1-gc_content)/2,
         'G': gc_content/2
         }
-    
+
     for char in dna:
         prob_log += np.log10(frequency_map[char])
-        
+
     return prob_log
 
 # input_dna = input.split('\n')[0]
@@ -58,15 +58,15 @@ def get_log_probability(gc_content, dna):
 def get_all_log_probability(input):
     input_dna = input.split('\n')[0]
     gc_contents = [float(num) for num in input.split('\n')[1].split()]
-    
-    output_string = ''	
-    
+
+    output_string = ''
+
     for gc_content in gc_contents:
         prob = get_log_probability(gc_content, input_dna)
         output_string += f"{prob:.3f}" + ' '
-        
+
     return output_string.rstrip()
-    
+
 
 print(get_all_log_probability(input))
 ```

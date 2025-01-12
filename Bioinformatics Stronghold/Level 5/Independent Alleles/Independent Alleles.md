@@ -64,17 +64,17 @@ def probability_at_least_N_AaBb(input):
     k = int(input.split(' ')[0])
     N = int(input.split(' ')[1])
 
-    total_offspring  = 2**k	
+    total_offspring  = 2**k
 
     # Probability of each offspring being Aa Bb
     p_AaBb = 1 / 4
-    
+
     # Compute P(X >= N) as 1 - P(X < N)
     # P(X >= N) = 1 - binom.cdf(N-1, total_offspring, p_AaBb)
     probability = 1 - binom.cdf(N - 1, total_offspring, p_AaBb)
-    
+
     return probability
-    
+
 print(probability_at_least_N_AaBb(input))
 ```
 

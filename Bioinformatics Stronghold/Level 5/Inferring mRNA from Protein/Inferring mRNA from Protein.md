@@ -52,12 +52,12 @@ print(output)
 
 def get_possible_rna_sequences(input):
     protein_codon_freq = pd.DataFrame(codon_dict.items(), columns=['Codon', 'Amino Acid']).groupby('Amino Acid').count().to_dict().get('Codon')
-    
+
     possible_sequences = 1
     for aa in input:
         possible_sequences *= protein_codon_freq.get(aa)
     possible_sequences *= 3 # 3 stop codons
-    
+
     return possible_sequences % 1000000
 
 get_possible_rna_sequences(input)
@@ -95,5 +95,3 @@ get_possible_rna_sequences(real_input)
 
 
     956992
-
-

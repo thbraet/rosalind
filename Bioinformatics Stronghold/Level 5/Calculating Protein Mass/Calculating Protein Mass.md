@@ -22,7 +22,7 @@ print("\nSample Output:\n",sample_output)
 
     Sample Input:
      SKADYEK
-    
+
     Sample Output:
      821.392
 
@@ -53,11 +53,11 @@ my_sample_output
 ```python
 def print_output(output, file_path = 'output.txt'):
     output_string = str(output)
-    
+
     write_text(output_string, file_path)
-    
+
     print("Output String:\n",output_string)
-        
+
     return output_string
 
 
@@ -120,7 +120,7 @@ def calculate_weight(input):
     weight = 0
     for c in input:
         weight += monoisotopic_mass_dict[c]
-        
+
     return weight
 
 calculate_weight(input)
@@ -145,5 +145,3 @@ calculate_weight(real_input)
 
 
     103372.12024000057
-
-

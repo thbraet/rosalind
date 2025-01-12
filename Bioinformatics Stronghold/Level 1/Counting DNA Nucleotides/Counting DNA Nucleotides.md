@@ -22,7 +22,7 @@ print("\nSample Output:\n",sample_output)
 
     Sample Input:
      AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC
-    
+
     Sample Output:
      20 12 17 21
 
@@ -46,11 +46,11 @@ my_sample_output
 ```python
 def print_output(output, file_path = 'output.txt'):
     output_string = f"{output["A"]} {output["C"]} {output["G"]} {output["T"]}"
-    
+
     write_text(output_string, file_path)
-    
+
     print("Output String:\n",output_string)
-        
+
     return output_string
 
 

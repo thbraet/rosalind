@@ -23,7 +23,7 @@ print("\nSample Output:\n",sample_output)
     Sample Input:
      GAGCCTACTAACGGGAT
     CATCGTAATGACGGCCT
-    
+
     Sample Output:
      7
 
@@ -51,11 +51,11 @@ my_sample_output
 ```python
 def print_output(output, file_path = 'output.txt'):
     output_string = str(output)
-    
+
     write_text(output_string, file_path)
-    
+
     print("Output String:\n",output_string)
-        
+
     return output_string
 
 
@@ -85,4 +85,3 @@ print_output(solve_problem(real_input), "my_rosalind_file_output.txt");
 
     Output String:
      522
-
