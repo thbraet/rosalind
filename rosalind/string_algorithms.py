@@ -427,3 +427,53 @@ def find_longest_common_substring(dna_list: List[str]) -> List[str]:
     longest_strings = [s for s in substring_list if len(s) == max_length]
 
     return sorted(longest_strings)
+
+
+def find_reverse_palindromes(
+    dna_strand: str, min_length: int = 4, max_length: int = 12
+) -> pd.DataFrame:
+    """
+    Locate positions and lengths of palindromic sequences (reverse palindromes)
+    in a given DNA strand.
+
+    A reverse palindrome is identified when a substring of the DNA strand
+    is equal to its reverse complement. The search is performed for substrings
+    between the specified minimum and maximum lengths.
+
+    Args:
+        dna_strand (str): A string representing the DNA strand.
+        min_length (int): Minimum length of the palindromic substring to consider.
+        max_length (int): Maximum length of the palindromic substring to consider.
+
+    Raises:
+        ValueError: If min_length or max_length are invalid.
+        KeyError: If invalid characters are present in the DNA strand.
+
+    Returns:
+        pd.DataFrame: A DataFrame with columns 'Position' (1-based index) and 'Length'.
+    """
+    # Validate min_length and max_length
+    if not (min_length > 0 and max_length >= min_length):
+        raise ValueError(
+            "min_length must be > 0 and max_length must be >= min_length."
+        )
+
+    # Validate that the sequence contains only valid nucleotides
+    valid_nucleotides = set("ATCG")
+    if not set(dna_strand).issubset(valid_nucleotides):
+        raise KeyError(
+            f"Invalid character(s) found in DNA sequence: {set(dna_strand) - valid_nucleotides}"
+        )
+
+    results: List[dict] = []
+
+    # Locate reverse palindromes
+    for i in range(len(dna_strand)):
+        for j in range(
+            i + min_length, min(i + max_length + 1, len(dna_strand) + 1)
+        ):
+            substring = dna_strand[i:j]
+            if substring == get_complementary_dna_strand(substring):
+                results.append({"Position": i + 1, "Length": len(substring)})
+
+    return pd.DataFrame(results)
