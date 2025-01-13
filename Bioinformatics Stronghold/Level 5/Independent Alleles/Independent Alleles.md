@@ -1,19 +1,20 @@
 ---
 ---
 
-# Finding a Shared Motif
+# Template Problem
 
 ## Read Sample Input and Output
 
 
 ```python
-from rosalind.string_algorithms import find_lcs, find_common_substrings
-from rosalind.read_files import read_text, write_text, read_fasta
+from rosalind.probability import phenotype_probability
+from rosalind.read_files import read_text, write_text
+from scipy.stats import binom
 ```
 
 
 ```python
-sample_input = read_fasta('sample_input.txt')
+sample_input = read_text('sample_input.txt')
 print("Sample Input:\n", sample_input)
 
 sample_output = read_text('sample_output.txt')
@@ -21,13 +22,10 @@ print("\nSample Output:\n",sample_output)
 ```
 
     Sample Input:
-        Identifier Sequence
-    0  Rosalind_1  GATTACA
-    1  Rosalind_2  TAGACCA
-    2  Rosalind_3    ATACA
+     2 1
     
     Sample Output:
-     AC
+     0.684
 
 
 ## Solve Sample Problem
@@ -35,9 +33,18 @@ print("\nSample Output:\n",sample_output)
 
 ```python
 def solve_problem(input):
-    dna_strings = input.Sequence
-    return find_lcs(dna_strings)[0]
-    # return my_function(input)
+    k = int(input.split(' ')[0])
+    N = int(input.split(' ')[1])
+
+    total_offspring  = 2**k	
+        
+    p_AaBb = 1 / 4
+    
+    # Compute P(X >= N) as 1 - P(X < N)
+    # P(X >= N) = 1 - binom.cdf(N-1, total_offspring, p_AaBb)
+    probability = 1 - binom.cdf(N - 1, total_offspring, p_AaBb)
+    
+    return round(probability, 3)
 
 ```
 
@@ -50,7 +57,7 @@ my_sample_output
 
 
 
-    'AC'
+    np.float64(0.684)
 
 
 
@@ -74,7 +81,7 @@ print_output(my_sample_output, "my_sample_output.txt") == sample_output
 ```
 
     Output String:
-     AC
+     0.684
 
 
 
@@ -88,11 +95,11 @@ print_output(my_sample_output, "my_sample_output.txt") == sample_output
 
 
 ```python
-real_input = read_fasta('rosalind_lcsm.txt')
+real_input = read_text('rosalind_lia.txt')
 
-print_output(solve_problem(real_input), "my_rosalind_lcsm_output.txt");
+print_output(solve_problem(real_input), "my_rosalind_lia_output.txt");
 ```
 
     Output String:
-     CGGATAGATGTGGCTGAACCACGACACCGAAGTTCTCAGCGGAGGAAGATATGAAAATGCATAGAAGGCTTACAGATCGGGGGTCGACGTTCGGTACTCGACACTCATCTTTGAAGTGTGTCAGCATGCTCGATGTTCTTCAAGCTGGGGCATAGCAGGGTAGTCCCGTCACCGCATATAAGGGATGTGGTCCCGCTGCGCATCCGACATTC
+     0.66
 
