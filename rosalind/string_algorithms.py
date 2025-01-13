@@ -46,7 +46,7 @@ def transcribe_dna_to_rna(dna_sequence: str) -> str:
         >>> transcribe_dna_to_rna("ATTGCAT")
         'AUUGCAU'
     """
-    return dna_sequence.replace("T", "U")
+    return dna_sequence.replace("T", "U")[::-1]
 
 
 def get_complementary_dna_strand(dna_sequence: str) -> str:

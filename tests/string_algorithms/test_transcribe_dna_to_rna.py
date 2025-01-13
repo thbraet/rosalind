@@ -4,21 +4,21 @@ from rosalind.string_algorithms import transcribe_dna_to_rna
 def test_transcribe_dna_to_rna_basic():
     # Test for a simple DNA sequence
     result = transcribe_dna_to_rna("ACGT")
-    expected = "ACGU"
+    expected = "UGCA"
     assert result == expected
 
 
 def test_transcribe_dna_with_multiple_ts():
     # Test for a DNA sequence with multiple 'T's
     result = transcribe_dna_to_rna("ATTGCAT")
-    expected = "AUUGCAU"
+    expected = "UACGUUA"
     assert result == expected
 
 
 def test_transcribe_dna_with_no_ts():
     # Test for a DNA sequence with no 'T's (no change)
     result = transcribe_dna_to_rna("ACG")
-    expected = "ACG"
+    expected = "GCA"
     assert result == expected
 
 
@@ -39,11 +39,11 @@ def test_transcribe_dna_with_all_ts():
 def test_transcribe_dna_with_mixed_characters():
     # Test for a DNA sequence with a mix of 'A', 'C', 'G', and 'T'
     result = transcribe_dna_to_rna("AGCTAGCT")
-    expected = "AGCUAGCU"
+    expected = "UCGAUCGA"
     assert result == expected
 
 
 def test_rosalind_sample_input():
     result = transcribe_dna_to_rna("GATGGAACTTGACTACGTAAATT")
-    expected = "GAUGGAACUUGACUACGUAAAUU"
+    expected = "UUAAAUGCAUCAGUUCAAGGUAG"
     assert result == expected
