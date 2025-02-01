@@ -1,8 +1,9 @@
 import requests
-from rosalind.read_files import read_codon_dict
 import re
 from typing import List
 import pandas as pd
+
+from rosalind.read_files import read_codon_dict
 
 
 def get_nucleotide_counts(sequence: str) -> dict[str, int]:
@@ -46,7 +47,7 @@ def transcribe_dna_to_rna(dna_sequence: str) -> str:
         >>> transcribe_dna_to_rna("ATTGCAT")
         'AUUGCAU'
     """
-    return dna_sequence.replace("T", "U")[::-1]
+    return dna_sequence.replace("T", "U")
 
 
 def get_complementary_dna_strand(dna_sequence: str) -> str:
@@ -138,7 +139,7 @@ def find_substring_positions(
     positions = []
     for i in range(len(strand) - len(sub_strand) + 1):
         if strand[i : i + len(sub_strand)] == sub_strand:
-            positions.append(i + 1)  # 1-based index
+            positions.append(i)
 
     if position_type == "first":
         # Return the first occurrence
@@ -150,6 +151,30 @@ def find_substring_positions(
 
     # Default behavior: return all positions
     return positions if positions else []
+
+
+def find_start_codons(rna, position_type: str = "all"):
+    return find_substring_positions(rna, 'AUG', position_type)
+
+
+def find_stop_codons(rna, position_type: str = "all"):
+    stop_codon_indices = []
+
+    if rna[:3] != 'AUG':
+        raise ValueError('RNA strand should start with a start codon (AUG)')
+
+    for i in range(0, len(rna), 3):
+        codon = rna[i : i + 3]
+        if codon in ['UAA', 'UAG', 'UGA']:
+            stop_codon_indices.append(i)
+
+    if position_type == 'first' and stop_codon_indices:
+        return stop_codon_indices[0]
+
+    elif position_type == 'last' and stop_codon_indices:
+        return stop_codon_indices[-1]
+
+    return stop_codon_indices
 
 
 def split_rna_into_codons(rna: str) -> list[str]:
@@ -477,3 +502,50 @@ def find_reverse_palindromes(
                 results.append({"Position": i + 1, "Length": len(substring)})
 
     return pd.DataFrame(results)
+
+
+def find_open_reading_frames(dna: str) -> List[str]:
+    """
+    Identifies all open reading frames (ORFs) in the given DNA sequence and its complementary strand.
+
+    An ORF is defined as a sequence starting from a start codon and ending with a stop codon.
+    The function considers both the forward DNA strand and its complementary strand for ORF discovery.
+
+    Args:
+        dna (str): The DNA sequence to analyze. Must consist of valid nucleotide characters: 'A', 'T', 'C', 'G'.
+
+    Returns:
+        List[str]: A list of DNA sequences representing all identified open reading frames (ORFs).
+    """
+    orf = []
+
+    # Get the complementary DNA strand.
+    complementary_dna = get_complementary_dna_strand(dna)
+
+    # Transcribe DNA to RNA for both strands.
+    input_rna = transcribe_dna_to_rna(dna)
+    complementary_rna = transcribe_dna_to_rna(complementary_dna)
+
+    # Find start codons in both strands.
+    start_codon_indexes = find_start_codons(input_rna, position_type="all")
+    complementary_start_codon_indexes = find_start_codons(
+        complementary_rna, position_type="all"
+    )
+
+    # Extract ORFs from the main strand.
+    for i in start_codon_indexes:
+        stop_codon_index = find_stop_codons(
+            input_rna[i:], position_type="first"
+        )
+        if stop_codon_index != []:
+            orf.append(dna[i : i + stop_codon_index + 3])
+
+    # Extract ORFs from the complementary strand.
+    for i in complementary_start_codon_indexes:
+        stop_codon_index = find_stop_codons(
+            complementary_rna[i:], position_type="first"
+        )
+        if stop_codon_index != []:
+            orf.append(complementary_dna[i : i + stop_codon_index + 3])
+
+    return orf
