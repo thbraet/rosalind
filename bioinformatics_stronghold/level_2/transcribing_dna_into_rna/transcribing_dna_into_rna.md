@@ -23,7 +23,7 @@ print("\nSample Output:\n",sample_output)
 
     Sample Input:
      GATGGAACTTGACTACGTAAATT
-    
+
     Sample Output:
      GAUGGAACUUGACUACGUAAAUU
 
@@ -47,11 +47,11 @@ my_sample_output
 ```python
 def print_output(output, file_path = 'output.txt'):
     output_string = output
-    
+
     write_text(output_string, file_path)
-    
+
     print("Output String:\n",output_string)
-        
+
     return output_string
 
 
@@ -78,7 +78,7 @@ print_output(my_sample_output, "my_sample_output.txt") == sample_output
 
 ```python
 real_input = read_text('rosalind_rna.txt')
-    
+
 print_output(transcribe_dna_to_rna(real_input), "my_rosalind_rna_output.txt");
 
 

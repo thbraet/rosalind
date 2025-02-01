@@ -72,7 +72,7 @@ def add_single_nodes(n, sets):
                 break
         if not found:
             sets.append({i})
-    
+
     return sets
 ```
 
@@ -90,9 +90,9 @@ def have_common_elements(sets):
 ```python
 def complete_a_tree(input):
     n = int(input.split('\n')[0])
-    
+
     print(n)
-    
+
     sets = []
     for t in input.split('\n')[1:]:
         t = tuple(map(int, t.split(' ')))
@@ -105,17 +105,17 @@ def complete_a_tree(input):
                 break
         if not merged:
             sets.append(set(t))
-                
-    
+
+
     sets = merge_sets(sets)
-        
-    
+
+
     sets = add_single_nodes(n, sets)
-                
+
     return len(sets) - 1
-        
+
     # print(input)
-    
+
 complete_a_tree(input)
 ```
 

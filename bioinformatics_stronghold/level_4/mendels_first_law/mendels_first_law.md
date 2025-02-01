@@ -22,7 +22,7 @@ print("\nSample Output:\n",sample_output)
 
     Sample Input:
      2 2 2
-    
+
     Sample Output:
      0.78333
 
@@ -57,11 +57,11 @@ my_sample_output
 ```python
 def print_output(output, file_path = 'output.txt'):
     output_string = str(output)
-    
+
     write_text(output_string, file_path)
-    
+
     print("Output String:\n",output_string)
-        
+
     return output_string
 
 
@@ -94,4 +94,3 @@ print_output(solve_problem(real_input), "my_rosalind_iprb_output.txt");
 
     Output String:
      0.72064
-

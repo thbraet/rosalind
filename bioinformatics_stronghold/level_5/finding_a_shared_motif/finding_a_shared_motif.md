@@ -1,78 +1,98 @@
 ---
 ---
 
-# INSERT TITEL
+# Finding a Shared Motif
 
-# Problem
-
-Lorem Ipsum
-
-<span style="color:rgba(70,165,70,255); font-weight:bold">Given</span>: ...
-
-<span style="color:rgba(70,165,70,255); font-weight:bold">Return</span>: ...
-
-
-
-# Read Files
+## Read Sample Input and Output
 
 
 ```python
-%run ../../functions/read_files
+from rosalind.string_algorithms import find_lcs, find_common_substrings
+from rosalind.read_files import read_text, write_text, read_fasta
 ```
 
 
 ```python
-input = read_fasta('/Workspace/Users/pmm203@fluvius.be/rosalind/Bioinformatics Stronghold/Level 5/Finding a Shared Motif/sample_input.txt')
-# input = read_fasta('sample_input.txt')
-print(input)
+sample_input = read_fasta('sample_input.txt')
+print("Sample Input:\n", sample_input)
 
-output = read_text('/Workspace/Users/pmm203@fluvius.be/rosalind/Bioinformatics Stronghold/Level 5/Finding a Shared Motif/sample_output.txt')
-# output = read_text('sample_output.txt')
-print(output)
+sample_output = read_text('sample_output.txt')
+print("\nSample Output:\n",sample_output)
 ```
 
-# Solution
+    Sample Input:
+        Identifier Sequence
+    0  Rosalind_1  GATTACA
+    1  Rosalind_2  TAGACCA
+    2  Rosalind_3    ATACA
+    
+    Sample Output:
+     AC
+
+
+## Solve Sample Problem
 
 
 ```python
-def find_common_substring(s1, s2):
-    common_substrings = []
+def solve_problem(input):
+    dna_strings = input.Sequence
+    return find_lcs(dna_strings)[0]
+    # return my_function(input)
 
-    for i in range(len(s1)):
-        for j in range(i, len(s1)):
-            # print(s1[i:j+1])
-            if s1[i:j+1] in s2:
-                # print(s1[i:j+1],"Yeey")
-                common_substrings.append(s1[i:j+1])
-
-    return list(set(common_substrings))
-
-def find_lcs(input):
-    input['length'] = input['Sequence'].str.len()
-    input = input.sort_values(by='length', ascending=True).drop(columns=['length'])  # Sort and drop the helper column
-
-    substring_list = find_common_substring(input.iloc[0,:]['Sequence'], input.iloc[1,:]['Sequence'])
-
-    for dna_strand in input['Sequence']:
-
-        substring_list = [x for x in substring_list if x in dna_strand]
-
-    return sorted(substring_list, key=len, reverse=True)[0]
-
-
-find_lcs(input)
 ```
 
 
 ```python
-find_lcs(input) == output
+my_sample_output = solve_problem(sample_input)
+my_sample_output
 ```
 
-# Submit solution
+
+
+
+    'AC'
+
+
 
 
 ```python
-real_input = read_fasta('/Workspace/Users/pmm203@fluvius.be/rosalind/Bioinformatics Stronghold/Level 5/Finding a Shared Motif/rosalind_lcsm.txt')
+def print_output(output, file_path = 'output.txt'):
+    output_string = str(output)
+    
+    write_text(output_string, file_path)
+    
+    print("Output String:\n",output_string)
+        
+    return output_string
 
-find_lcs(real_input)
+
 ```
+
+
+```python
+print_output(my_sample_output, "my_sample_output.txt") == sample_output
+```
+
+    Output String:
+     AC
+
+
+
+
+
+    True
+
+
+
+## Run Real Input
+
+
+```python
+real_input = read_fasta('rosalind_lcsm.txt')
+
+print_output(solve_problem(real_input), "my_rosalind_lcsm_output.txt");
+```
+
+    Output String:
+     CGGATAGATGTGGCTGAACCACGACACCGAAGTTCTCAGCGGAGGAAGATATGAAAATGCATAGAAGGCTTACAGATCGGGGGTCGACGTTCGGTACTCGACACTCATCTTTGAAGTGTGTCAGCATGCTCGATGTTCTTCAAGCTGGGGCATAGCAGGGTAGTCCCGTCACCGCATATAAGGGATGTGGTCCCGCTGCGCATCCGACATTC
+

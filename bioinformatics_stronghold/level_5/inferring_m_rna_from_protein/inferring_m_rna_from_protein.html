@@ -7617,12 +7617,12 @@ a.anchor-link {
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_possible_rna_sequences</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
     <span class="n">protein_codon_freq</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">codon_dict</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'Codon'</span><span class="p">,</span> <span class="s1">'Amino Acid'</span><span class="p">])</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'Amino Acid'</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'Codon'</span><span class="p">)</span>
-    
+
     <span class="n">possible_sequences</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">for</span> <span class="n">aa</span> <span class="ow">in</span> <span class="nb">input</span><span class="p">:</span>
         <span class="n">possible_sequences</span> <span class="o">*=</span> <span class="n">protein_codon_freq</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">aa</span><span class="p">)</span>
     <span class="n">possible_sequences</span> <span class="o">*=</span> <span class="mi">3</span> <span class="c1"># 3 stop codons</span>
-    
+
     <span class="k">return</span> <span class="n">possible_sequences</span> <span class="o">%</span> <span class="mi">1000000</span>
 
 <span class="n">get_possible_rna_sequences</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>

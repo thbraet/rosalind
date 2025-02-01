@@ -1,39 +1,33 @@
 ---
 ---
 
-# INSERT TITEL
+# Finding a Protein Motif
 
-# Problem
-
-Lorem Ipsum
-
-<span style="color:rgba(70,165,70,255); font-weight:bold">Given</span>: ...
-
-<span style="color:rgba(70,165,70,255); font-weight:bold">Return</span>: ...
-
-
-
-# Read Files
+## Read Sample Input and Output
 
 
 ```python
-%run ../../functions/read_files.ipynb
+from rosalind.string_algorithms import find_glycosylation_motifs
+from rosalind.read_files import read_text, write_text
 ```
 
 
 ```python
-input = read_text('sample_input.txt')
-print(input)
+sample_input = read_text('sample_input.txt')
+print("Sample Input:\n", sample_input)
 
-output = read_text('sample_output.txt')
-print(output)
+sample_output = read_text('sample_output.txt')+"\n"
+print("\nSample Output:\n",sample_output)
 ```
 
-    A2Z669
+    Sample Input:
+     A2Z669
     B5ZC00
     P07204_TRBM_HUMAN
     P20840_SAG1_YEAST
-    B5ZC00
+
+    Sample Output:
+     B5ZC00
     85 118 142 306 395
     P07204_TRBM_HUMAN
     47 115 116 382 409
@@ -41,60 +35,28 @@ print(output)
     79 109 135 248 306 348 364 402 485 501 614
 
 
-# Solution
+
+## Solve Sample Problem
 
 
 ```python
-import re
-import requests
-
-def get_result(function_input):
-    
-    def find_glycosylation_motifs(uniprot_id):
-        
-        id = uniprot_id.split('_')[0]
-        # id = uniprot_id
-        
-        # Fetch the FASTA data from UniProt REST API
-        url = f"https://rest.uniprot.org/uniprotkb/{id}.fasta"
-        response = requests.get(url)
-        
-        if response.status_code != 200:
-            # print(f"Failed to fetch data for {uniprot_id}. HTTP status code: {response.status_code}")
-            return
-        
-        # Parse the FASTA response
-        fasta_data = response.text
-        lines = fasta_data.splitlines()
-        sequence = "".join(line.strip() for line in lines if not line.startswith(">") and line.isalpha())
-        
-        # Regular expression for the N-glycosylation motif
-        pattern = r"N(?=[^P][ST][^P])"  # Lookahead to allow overlapping matches
-        
-        # Find all overlapping matches and their start indices
-        start_positions = []
-        for match in re.finditer(pattern, sequence):
-            start_positions.append(match.start() + 1)  # Convert to 1-based indexing
-        
-        # Format the output
-        if start_positions:
-            print(f"{uniprot_id}\n{' '.join(map(str, start_positions))}")
-            return f"{uniprot_id}\n{' '.join(map(str, start_positions))}"
-        else:
-            return f"{uniprot_id}\nNo motifs found"
-
-    result = []
-    for i in function_input.split('\n'):
-        # print(i)
-        result.append(find_glycosylation_motifs(i))
-    # return result
-
-
-# Example usage
-get_result(input)
+def solve_problem(input):
+    output_str = ""
+    for i in input.split("\n"):
+        motifs = find_glycosylation_motifs(i)
+        if motifs:
+            output_str += i + "\n" + motifs + "\n"
+    return output_str
 
 ```
 
+
+```python
+my_sample_output = solve_problem(sample_input)
+print(my_sample_output)
+```
+
+    No glycosylation motifs found for A2Z669.
     B5ZC00
     85 118 142 306 395
     P07204_TRBM_HUMAN
@@ -104,11 +66,27 @@ get_result(input)
 
 
 
+
 ```python
-print(output)
+def print_output(output, file_path = 'output.txt'):
+    output_string = str(output)
+
+    write_text(output_string, file_path)
+
+    print("Output String:\n",output_string)
+
+    return output_string
+
+
 ```
 
-    B5ZC00
+
+```python
+print_output(my_sample_output, "my_sample_output.txt") == sample_output
+```
+
+    Output String:
+     B5ZC00
     85 118 142 306 395
     P07204_TRBM_HUMAN
     47 115 116 382 409
@@ -116,16 +94,29 @@ print(output)
     79 109 135 248 306 348 364 402 485 501 614
 
 
-# Submit solution
+
+
+
+
+    True
+
+
+
+## Run Real Input
 
 
 ```python
 real_input = read_text('rosalind_mprt.txt')
 
-get_result(real_input)
+print_output(solve_problem(real_input), "my_rosalind_mprt_output.txt");
 ```
 
-    P10643_CO7_HUMAN
+    No glycosylation motifs found for Q9CE42.
+    No glycosylation motifs found for Q83I57.
+    No glycosylation motifs found for Q8WW18.
+    No glycosylation motifs found for Q28409.
+    Output String:
+     P10643_CO7_HUMAN
     202 754
     Q3Z2Z2
     49
@@ -141,4 +132,3 @@ get_result(real_input)
     87 284 383
     Q90304_C166_CARAU
     92 171 350 441 465
-

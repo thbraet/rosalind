@@ -43,19 +43,19 @@ import math
 def get_perfect_matchings(input):
     rna_strand = input.Sequence[0]
     print(rna_strand)
-    
+
     count_A = rna_strand.count('A')
     count_U = rna_strand.count('U')
     count_C = rna_strand.count('C')
     count_G = rna_strand.count('G')
-    
+
     if count_A != count_U or count_C != count_G:
         print("Invalid String, no perfect matching possible")
         return 0
-    
+
     return math.factorial(count_A) * math.factorial(count_C)
-    
-    
+
+
 get_perfect_matchings(input)
 ```
 

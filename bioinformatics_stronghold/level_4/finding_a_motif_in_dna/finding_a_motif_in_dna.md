@@ -23,7 +23,7 @@ print("\nSample Output:\n",sample_output)
     Sample Input:
      GATATATGCATATACTT
     ATAT
-    
+
     Sample Output:
      2 4 10
 
@@ -57,11 +57,11 @@ my_sample_output
 ```python
 def print_output(output, file_path = 'output.txt'):
     output_string = (" ".join(map(str, output)))
-    
+
     write_text(output_string, file_path)
-    
+
     print("Output String:\n",output_string)
-        
+
     return output_string
 
 
@@ -94,4 +94,3 @@ print_output(solve_problem(real_input), "my_rosalind_subs_output.txt");
 
     Output String:
      64 82 97 140 197 222 229 236 251 258 287 294 359 423 438 455 491 671 678 919 926 971
-
